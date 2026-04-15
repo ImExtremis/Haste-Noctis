@@ -19,7 +19,7 @@
 
 import {mkdirSync, readFileSync, writeFileSync} from 'node:fs';
 import {join} from 'node:path';
-import {convertToCodePoints} from '@app/utils/EmojiCodepointUtils';
+import {convertToCodePoints} from '../src/utils/EmojiCodepointUtils';
 import sharp from 'sharp';
 
 const EMOJI_SPRITES = {
