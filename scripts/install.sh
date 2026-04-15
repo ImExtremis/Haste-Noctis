@@ -22,8 +22,8 @@ PROJECT_ROOT="$(pwd)"
 function pre_flight_checks() {
   log_info "Running system checks..."
 
-  if ! grep -qiE 'ubuntu 22\.04|ubuntu 24\.04' /etc/os-release; then
-    log_error "This script currently only supports Ubuntu 22.04 and Ubuntu 24.04."
+  if ! grep -qiE 'ubuntu 22\.04|ubuntu 24\.04|kali' /etc/os-release; then
+    log_error "This script currently only supports Ubuntu (22.04/24.04) and Kali Linux."
   fi
 
   if [ "$EUID" -ne 0 ]; then
@@ -137,6 +137,15 @@ function install_prerequisites() {
   corepack prepare pnpm@10.29.3 --activate
   if ! pnpm -v | grep -q "^10."; then
     log_error "pnpm 10.x was not installed properly."
+  fi
+
+  log_info "Installing Rust and Cargo..."
+  if ! command -v cargo >/dev/null 2>&1; then
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+    source "$HOME/.cargo/env"
+  fi
+  if ! cargo --version >/dev/null 2>&1; then
+    log_error "Rust/Cargo installation failed."
   fi
 
   log_info "Installing Docker..."
@@ -401,7 +410,16 @@ PYEOF
     fi
   fi
 
-  # Step 4: Build
+  # Step 4: Typecheck (non-fatal — type errors do not prevent the app from running)
+  log_info "Running typecheck (failures are warnings only)..."
+  if pnpm --filter @noctis/api run typecheck 2>&1; then
+    log_success "Typecheck passed"
+  else
+    log_warn "Typecheck reported errors — continuing build. Fix types when convenient."
+    log_warn "Run 'pnpm --filter @noctis/api run typecheck' to see the full list."
+  fi
+
+  # Step 5: Build (fatal — rspack/compile errors must be resolved before the app can start)
   log_info "Building all packages (this may take 5-15 minutes)..."
 
   # Print a heartbeat every 60s so the terminal doesn't look frozen
@@ -413,7 +431,7 @@ PYEOF
     log_success "Build complete"
   else
     kill $BUILD_TIMER_PID 2>/dev/null || true
-    log_error "Build failed. Run 'pnpm turbo build' manually to see detailed errors."
+    log_error "Build failed (compile/rspack error). Run 'pnpm turbo build' manually to see detailed errors."
   fi
 }
 

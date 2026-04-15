@@ -19,6 +19,7 @@
 
 import * as fs from 'node:fs';
 import * as path from 'node:path';
+import {fileURLToPath} from 'node:url';
 
 interface JsonSchema {
 	$schema?: string;
@@ -48,7 +49,7 @@ interface DefFile {
 	[key: string]: JsonSchema;
 }
 
-const SCHEMA_DIR = path.dirname(new URL(import.meta.url).pathname);
+const SCHEMA_DIR = path.dirname(fileURLToPath(import.meta.url));
 const DEFS_DIR = path.join(SCHEMA_DIR, 'defs');
 const ROOT_SCHEMA_PATH = path.join(SCHEMA_DIR, 'root.json');
 const OUTPUT_SCHEMA_PATH = path.join(SCHEMA_DIR, '..', 'ConfigSchema.json');

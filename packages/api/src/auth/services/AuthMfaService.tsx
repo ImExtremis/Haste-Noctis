@@ -229,7 +229,7 @@ export class AuthMfaService {
 		const options = await generateRegistrationOptions({
 			rpName,
 			rpID,
-			userID: new TextEncoder().encode(user.id.toString()),
+			userID: new TextEncoder().encode(user.id.toString()) as Uint8Array<ArrayBuffer>,
 			userName: user.username!,
 			userDisplayName: user.username!,
 			attestationType: 'none',
