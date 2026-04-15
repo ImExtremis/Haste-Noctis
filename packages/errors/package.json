@@ -1,0 +1,30 @@
+{
+	"name": "@noctis/errors",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		"./*": "./*"
+	},
+	"scripts": {
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"typecheck": "tsgo --noEmit"
+	},
+	"dependencies": {
+		"@noctis/config": "workspace:*",
+		"@noctis/constants": "workspace:*",
+		"@noctis/hono_types": "workspace:*",
+		"@noctis/i18n": "workspace:*",
+		"@noctis/logger": "workspace:*",
+		"@noctis/sentry": "workspace:*",
+		"@noctis/telemetry": "workspace:*",
+		"hono": "catalog:"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"@typescript/native-preview": "catalog:",
+		"vite-tsconfig-paths": "catalog:",
+		"vitest": "catalog:"
+	}
+}

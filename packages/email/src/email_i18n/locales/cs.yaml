@@ -1,0 +1,370 @@
+account_disabled_suspicious:
+  subject: Tvůj účet Noctis byl dočasně deaktivován
+  body: |-
+    Ahoj {username},
+
+    Tvůj účet Noctis jsme dočasně deaktivovali, protože jsme zaznamenali podezřelou aktivitu.
+
+    {reason, select,
+      null {}
+      other {Důvod: {reason}}
+    }
+
+    Pro obnovení přístupu ke svému účtu si musíš resetovat heslo:
+
+    {forgotUrl}
+
+    Jakmile heslo resetuješ, budeš se moct znovu přihlásit.
+
+    Pokud si myslíš, že je to omyl, ozvi se prosím na naši podporu.
+
+    – Bezpečnostní tým Noctisu
+account_scheduled_deletion:
+  subject: Tvůj účet Noctis bude smazán
+  body: |-
+    Ahoj {username},
+
+    Tvůj účet Noctis byl označen k trvalému smazání, protože jsi porušil/a naše podmínky používání nebo pravidla komunity.
+
+    Datum plánovaného smazání: {deletionDate, date, full} {deletionDate, time, short}
+
+    {reason, select,
+      null {}
+      other {Důvod: {reason}}
+    }
+
+    Jde o závažné opatření. Data k účtu budou v uvedeném termínu nenávratně smazána.
+
+    Projdi si prosím:
+    - Podmínky používání: {termsUrl}
+    - Pravidla komunity: {guidelinesUrl}
+
+    Odvolání:
+    Pokud se domníváš, že je toto rozhodnutí chybné nebo neopodstatněné, můžeš do 60 dnů podat odvolání na appeals@noctis.app, a to z této e-mailové adresy.
+
+    V odvolání prosím:
+    - Jasně popiš, proč si myslíš, že je rozhodnutí chybné nebo neopodstatněné
+    - Přilož, pokud je to možné, relevantní důkazy nebo dodatečný kontext
+
+    Člen bezpečnostního týmu Noctisu odvolání posoudí a může plánované smazání pozastavit až do vydání konečného rozhodnutí.
+
+    – Bezpečnostní tým Noctisu
+account_temp_banned:
+  subject: Tvůj účet Noctis byl dočasně pozastaven
+  body: |-
+    Ahoj {username},
+
+    Tvůj účet Noctis byl dočasně pozastaven, protože jsi porušil/a naše podmínky používání nebo pravidla komunity.
+
+    Doba trvání: {durationHours, plural,
+      one {# hodina}
+      few {# hodiny}
+      other {# hodin}
+    }
+    Pozastaveno do: {bannedUntil, date, full} {bannedUntil, time, short}
+
+    {reason, select,
+      null {}
+      other {Důvod: {reason}}
+    }
+
+    Po tuto dobu se ke svému účtu nedostaneš.
+
+    Projdi si prosím:
+    - Podmínky používání: {termsUrl}
+    - Pravidla komunity: {guidelinesUrl}
+
+    Pokud se domníváš, že je toto rozhodnutí chybné nebo neopodstatněné, můžeš podat odvolání na appeals@noctis.app, a to z této e-mailové adresy. Jasně popiš, proč si myslíš, že je rozhodnutí chybné. Odvolání prověříme a ozveme se s výsledkem.
+
+    – Bezpečnostní tým Noctisu
+donation_confirmation:
+  subject: Děkujeme za příspěvek na Noctis
+  body: |-
+    Ahoj,
+
+    Děkujeme za příspěvek na Noctis! Tvůj {interval, select,
+      month {opakovaný příspěvek}
+      year {opakovaný příspěvek}
+      other {jednorázový příspěvek}
+    } byl úspěšně {interval, select,
+      month {nastaven}
+      year {nastaven}
+      other {zpracován}
+    }.
+
+    Podrobnosti příspěvku:
+    Částka: {amount} {currency} {interval, select,
+      month {měsíčně}
+      year {ročně}
+      other {}
+    }
+
+    Stripe ti brzy zašle samostatný e-mail s účtenkou a fakturou ve formátu PDF. Obsahuje všechny platební údaje a lze ji použít pro daňové účely.
+
+    Kdykoli si můžeš prohlédnout historii příspěvků, stáhnout faktury{interval, select,
+      month { a spravovat nebo zrušit předplatné}
+      year { a spravovat nebo zrušit předplatné}
+      other { a spravovat budoucí příspěvky}
+    } pomocí tohoto odkazu:
+
+    {manageUrl}
+
+    Tvá podpora pomáhá Noctisu fungovat. Děkujeme!
+
+    – tým Noctisu
+donation_magic_link:
+  subject: Spravuj své příspěvky na Noctis
+  body: |-
+    Ahoj,
+
+    Klikni na odkaz níže, abys získal/a přístup do portálu pro dárce:
+
+    {manageUrl}
+
+    V portálu můžeš spravovat předplatné, stahovat faktury a prohlížet si historii příspěvků.
+
+    Tento odkaz vyprší {expiresAt, date, full} v {expiresAt, time, short}.
+
+    Pokud sis to nevyžádal/a, můžeš tento e-mail bezpečně ignorovat.
+
+    – tým Noctisu
+dsa_report_verification:
+  subject: Ověř si e-mail pro DSA hlášení
+  body: |-
+    Ahoj,
+
+    Použij kód níže pro odeslání hlášení podle Digital Services Act (DSA) na Noctisu:
+
+    {code}
+
+    Tento kód vyprší dne {expiresAt, date, full} v {expiresAt, time, short}.
+
+    Pokud sis to nevyžádal/a, můžeš tento e-mail ignorovat.
+
+    – Bezpečnostní tým Noctisu
+email_change_new:
+  subject: Ověř si nový e-mail u Noctisu
+  body: |-
+    Ahoj {username},
+
+    Zadej tento kód v aplikaci a potvrď svůj nový e-mail u Noctisu:
+
+    {code}
+
+    Tento kód vyprší dne {expiresAt, date, full} v {expiresAt, time, short}.
+
+    Pokud sis to nevyžádal/a, můžeš tento e-mail ignorovat.
+
+    – Tým Noctisu
+email_change_original:
+  subject: Potvrď změnu e-mailu u Noctisu
+  body: |-
+    Ahoj {username},
+
+    Dostali jsme žádost o změnu e-mailové adresy u tvého účtu Noctis.
+
+    Pro potvrzení změny zadej tento kód v aplikaci:
+
+    {code}
+
+    Tento kód vyprší dne {expiresAt, date, full} v {expiresAt, time, short}.
+
+    Pokud sis to nevyžádal/a, hned si zabezpeč svůj účet.
+
+    – Tým Noctisu
+email_change_revert:
+  subject: E-mail u tvého účtu Noctis byl změněn
+  body: |-
+    Ahoj {username},
+
+    E-mailová adresa u tvého účtu Noctis byla změněna na {newEmail}.
+
+    Pokud jsi to byl/a ty, nemusíš nic dělat. Pokud ne, můžeš změnu vrátit zpět a zabezpečit účet přes tento odkaz:
+
+    {revertUrl}
+
+    Tím se obnoví původní e-mailová adresa, odhlásíš se všude, odeberou se propojená telefonní čísla, vypne se vícefaktorové ověřování (MFA) a budeš muset nastavit nové heslo.
+
+    – Bezpečnostní tým Noctisu
+email_verification:
+  subject: Ověř si e-mailovou adresu u Noctisu
+  body: |-
+    Ahoj {username},
+
+    Ověř prosím e-mailovou adresu u svého účtu Noctis kliknutím na odkaz níže:
+
+    {verifyUrl}
+
+    Pokud sis účet Noctis nezakládal/a, můžeš tento e-mail bez obav ignorovat.
+
+    Tento odkaz je platný 24 hodin.
+
+    – Tým Noctisu
+gift_chargeback_notification:
+  subject: Výhody z uplatněného dárkového kódu byly odebrány
+  body: |-
+    Ahoj {username},
+
+    Dárkový kód, který jsi uplatnil/a, byl původně zaplacen někým jiným. Tato platba byla později vrácena (chargeback).
+
+    Proto jsme odebrali výhody, které byly k tvému účtu přidány při uplatnění dárkového kódu.
+
+    Pokud si myslíš, že je to omyl, kontaktuj prosím naši podporu a připoj všechny podrobnosti, které máš o kódu a čase uplatnění.
+
+    – Tým Noctisu
+harvest_completed:
+  subject: Tvůj export dat z Noctisu je připraven ke stažení
+  body: |-
+    Ahoj {username},
+
+    Tvůj export dat je připraven.
+
+    Odkaz ke stažení:
+    {downloadUrl}
+
+    Zahrnuté zprávy: {totalMessages, number}
+    Velikost souboru: {fileSizeMB, number} MB
+
+    Tento odkaz vyprší dne {expiresAt, date, full} v {expiresAt, time, short}.
+
+    Pokud jsi o tento export nežádal/a ty, hned si změň heslo a kontaktuj naši podporu.
+
+    – Tým Noctisu
+inactivity_warning:
+  subject: Tvůj účet Noctis bude smazán kvůli neaktivitě
+  body: |-
+    Ahoj {username},
+
+    Na tvém účtu Noctis jsme od {lastActiveDate, date, full} nezaznamenali žádnou aktivitu.
+
+    Pokud se nepřihlásíš nejpozději do {deletionDate, date, full} {deletionDate, time, short}, bude tvůj účet kvůli neaktivitě trvale smazán.
+
+    Přihlášení:
+    {loginUrl}
+
+    Pokud jsi Noctis používal/a nedávno, hned kontaktuj naši podporu.
+
+    – Tým Noctisu
+ip_authorization:
+  subject: Povol přihlášení z nové IP adresy
+  body: |-
+    Ahoj {username},
+
+    Zaznamenali jsme pokus o přihlášení k tvému účtu Noctis z nové IP adresy:
+
+    IP adresa: {ipAddress}
+    Poloha: {location}
+
+    Pokud jsi to byl/a ty, potvrď tuto IP adresu kliknutím na odkaz níže:
+
+    {authUrl}
+
+    Pokud ses o přihlášení nepokoušel/a ty, hned si změň heslo.
+
+    Tento odkaz pro potvrzení je platný 30 minut.
+
+    – Tým Noctisu
+password_change_verification:
+  subject: Potvrď změnu hesla u Noctisu
+  body: |-
+    Ahoj {username},
+
+    Dostali jsme žádost o změnu hesla u tvého účtu Noctis.
+
+    Pro potvrzení této změny zadej tento kód v aplikaci:
+
+    {code}
+
+    Tento kód vyprší dne {expiresAt, date, full} v {expiresAt, time, short}.
+
+    Pokud sis to nevyžádal/a, je možné, že někdo má přístup k tvému účtu. Hned si změň heslo a zapni dvoufaktorové ověřování.
+
+    – Tým Noctisu
+password_reset:
+  subject: Reset hesla u Noctisu
+  body: |-
+    Ahoj {username},
+
+    Požádal/a jsi o reset hesla u Noctisu. Nové heslo si nastav přes odkaz níže:
+
+    {resetUrl}
+
+    Pokud sis reset nevyžádal/a, můžeš tento e-mail bez obav ignorovat.
+
+    Tento odkaz je platný 1 hodinu.
+
+    – Tým Noctisu
+registration_approved:
+  subject: Tvoje registrace do Noctisu byla schválena
+  body: |-
+    Ahoj {username},
+
+    Dobrá zpráva – tvoje registrace do Noctisu byla schválena.
+
+    Teď se můžeš přihlásit do aplikace Noctis tady:
+    {channelsUrl}
+
+    Vítej v komunitě Noctisu.
+
+    – Tým Noctisu
+report_resolved:
+  subject: Tvoje hlášení na Noctisu bylo zkontrolováno
+  body: |-
+    Ahoj {username},
+
+    Tvoje hlášení (ID: {reportId}) prověřil náš bezpečnostní tým.
+
+    Odpověď od bezpečnostního týmu:
+    {publicComment}
+
+    Díky, že pomáháš udržet Noctis bezpečný pro všechny. Všechna hlášení bereme vážně a vážíme si tvého příspěvku komunitě.
+
+    Pokud máš k výsledku dotazy nebo připomínky, napiš na safety@noctis.app.
+
+    – Bezpečnostní tým Noctisu
+scheduled_deletion_notification:
+  subject: Tvůj účet Noctis bude smazán
+  body: |-
+    Ahoj {username},
+
+    Tvůj účet Noctis byl označen k trvalému smazání.
+
+    Datum plánovaného smazání: {deletionDate, date, full} {deletionDate, time, short}
+
+    {reason, select,
+      null {}
+      other {Důvod: {reason}}
+    }
+
+    Jde o závažné opatření. Data k účtu budou v uvedeném termínu nenávratně smazána.
+
+    Pokud se domníváš, že je toto rozhodnutí chybné, můžeš podat odvolání na appeals@noctis.app, a to z této e-mailové adresy.
+
+    – Bezpečnostní tým Noctisu
+self_deletion_scheduled:
+  subject: Smazání tvého účtu Noctis je naplánované
+  body: |-
+    Ahoj {username},
+
+    Požádal/a jsi o smazání svého účtu Noctis. Tvůj účet bude trvale smazán dne:
+
+    {deletionDate, date, full} {deletionDate, time, short}
+
+    Pokud sis to nevyžádal/a, přihlas se ke svému účtu a smazání zruš. Doporučujeme také změnit heslo, aby byl účet lépe zabezpečený.
+
+    – Tým Noctisu
+unban_notification:
+  subject: Pozastavení tvého účtu Noctis bylo zrušeno
+  body: |-
+    Ahoj {username},
+
+    Dobrá zpráva – pozastavení tvého účtu Noctis bylo zrušeno.
+
+    {reason, select,
+      null {}
+      other {Důvod: {reason}}
+    }
+
+    Teď se můžeš znovu přihlásit a pokračovat v používání Noctisu.
+
+    – Bezpečnostní tým Noctisu

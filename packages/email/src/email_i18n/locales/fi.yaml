@@ -1,0 +1,369 @@
+account_disabled_suspicious:
+  subject: Noctis-tilisi on tilapäisesti lukittu
+  body: |-
+    Hei {username},
+
+    Noctis-tilisi on tilapäisesti lukittu epäilyttävän toiminnan vuoksi.
+
+    {reason, select,
+      null {}
+      other {Syy: {reason}}
+    }
+
+    Pääset takaisin tilillesi vaihtamalla salasanasi:
+
+    {forgotUrl}
+
+    Kun olet vaihtanut salasanan, voit kirjautua sisään uudelleen.
+
+    Jos uskot, että kyseessä on virhe, ota yhteyttä tukitiimiimme.
+
+    – Noctisin turvallisuustiimi
+account_scheduled_deletion:
+  subject: Noctis-tilisi poistetaan pysyvästi
+  body: |-
+    Hei {username},
+
+    Noctis-tilisi on ajastettu poistettavaksi pysyvästi, koska olet rikkonut käyttöehtojamme tai yhteisön sääntöjä.
+
+    Poistopäivä: {deletionDate, date, full} {deletionDate, time, short}
+
+    {reason, select,
+      null {}
+      other {Syy: {reason}}
+    }
+
+    Tämä on vakava toimenpide. Tilisi tiedot poistetaan pysyvästi ilmoitettuna ajankohtana.
+
+    Tarkista:
+    - Käyttöehdot: {termsUrl}
+    - Yhteisön säännöt: {guidelinesUrl}
+
+    Valitus:
+    Jos uskot, että päätös on väärä tai perusteeton, voit tehdä valituksen 60 päivän kuluessa. Lähetä valitus osoitteeseen appeals@noctis.app tästä sähköpostiosoitteesta.
+
+    Valituksessa:
+    - Kerro selkeästi, miksi uskot päätöksen olevan väärä tai perusteeton
+    - Liitä mukaan mahdollinen lisätieto ja todisteet
+
+    Noctisin turvallisuustiimin jäsen käsittelee valituksesi ja voi keskeyttää poiston, kunnes lopullinen päätös on tehty.
+
+    – Noctisin turvallisuustiimi
+account_temp_banned:
+  subject: Noctis-tilillesi on asetettu tilapäinen käyttökielto
+  body: |-
+    Hei {username},
+
+    Noctis-tilillesi on asetettu tilapäinen käyttökielto, koska olet rikkonut käyttöehtojamme tai yhteisön sääntöjä.
+
+    Kesto: {durationHours, plural,
+      =1 {1 tunti}
+      other {# tuntia}
+    }
+    Käyttökielto voimassa asti: {bannedUntil, date, full} {bannedUntil, time, short}
+
+    {reason, select,
+      null {}
+      other {Syy: {reason}}
+    }
+
+    Tänä aikana et pääse tilillesi.
+
+    Tarkista:
+    - Käyttöehdot: {termsUrl}
+    - Yhteisön säännöt: {guidelinesUrl}
+
+    Jos uskot, että päätös on väärä tai perusteeton, voit tehdä valituksen osoitteeseen appeals@noctis.app tästä sähköpostiosoitteesta. Kerro selkeästi, miksi uskot päätöksen olevan väärä. Käsittelemme valituksesi ja vastaamme lopullisella päätöksellämme.
+
+    – Noctisin turvallisuustiimi
+donation_confirmation:
+  subject: Kiitos Noctis-lahjoituksestasi
+  body: |-
+    Hei,
+
+    Kiitos lahjoituksestasi Noctisille! {interval, select,
+      month {Toistuva lahjoituksesi}
+      year {Toistuva lahjoituksesi}
+      other {Kertamaksusi}
+    } on {interval, select,
+      month {otettu käyttöön}
+      year {otettu käyttöön}
+      other {käsitelty}
+    } onnistuneesti.
+
+    Lahjoituksen tiedot:
+    Summa: {amount} {currency} {interval, select,
+      month {kuukaudessa}
+      year {vuodessa}
+      other {}
+    }
+
+    Stripe lähettää sinulle erillisen kuitin laskusi PDF-versiona pian. Se sisältää kaikki maksutiedot ja sitä voi käyttää verotuksessa.
+
+    Voit tarkastella lahjoitushistoriaasi, ladata laskuja, {interval, select,
+      month {ja hallita tai peruuttaa tilauksen}
+      year {ja hallita tai peruuttaa tilauksen}
+      other {ja hallita tulevia lahjoituksia}
+    } milloin tahansa tämän linkin kautta:
+
+    {manageUrl}
+
+    Tukesi pitää Noctisin toiminnassa. Kiitos!
+
+    – Noctis-tiimi
+donation_magic_link:
+  subject: Hallinnoi Noctis-lahjoituksiasi
+  body: |-
+    Hei,
+
+    Napsauta alla olevaa linkkiä päästäksesi lahjoittajaporttaaliin:
+
+    {manageUrl}
+
+    Portaalissa voit hallita tilauksia, ladata laskuja ja tarkastella lahjoitushistoriaasi.
+
+    Tämä linkki vanhenee {expiresAt, date, full} klo {expiresAt, time, short}.
+
+    Jos et pyytänyt tätä linkkiä, voit turvallisesti jättää tämän viestin huomiotta.
+
+    – Noctis-tiimi
+dsa_report_verification:
+  subject: Vahvista sähköpostiosoitteesi DSA-ilmoitusta varten
+  body: |-
+    Hei,
+
+    Käytä alla olevaa koodia lähettääksesi Digital Services Actin (DSA) mukaisen ilmoituksen Noctisissa:
+
+    {code}
+
+    Koodi vanhenee {expiresAt, date, full} klo {expiresAt, time, short}.
+
+    Jos et pyytänyt tätä, voit jättää tämän viestin huomiotta.
+
+    – Noctisin turvallisuustiimi
+email_change_new:
+  subject: Vahvista uusi Noctis-sähköpostiosoitteesi
+  body: |-
+    Hei {username},
+
+    Syötä tämä koodi sovellukseen vahvistaaksesi uuden Noctis-sähköpostiosoitteesi:
+
+    {code}
+
+    Koodi vanhenee {expiresAt, date, full} klo {expiresAt, time, short}.
+
+    Jos et pyytänyt tätä, voit jättää tämän viestin huomiotta.
+
+    – Noctis-tiimi
+email_change_original:
+  subject: Vahvista Noctis-sähköpostiosoitteen vaihto
+  body: |-
+    Hei {username},
+
+    Saimme pyynnön vaihtaa Noctis-tilisi sähköpostiosoitteen.
+
+    Vahvista vaihto syöttämällä tämä koodi sovellukseen:
+
+    {code}
+
+    Koodi vanhenee {expiresAt, date, full} klo {expiresAt, time, short}.
+
+    Jos et pyytänyt tätä, suojaa tilisi heti.
+
+    – Noctis-tiimi
+email_change_revert:
+  subject: Noctis-sähköpostiosoitteesi vaihdettiin
+  body: |-
+    Hei {username},
+
+    Noctis-tilisi sähköpostiosoite vaihdettiin osoitteeseen {newEmail}.
+
+    Jos teit muutoksen itse, sinun ei tarvitse tehdä mitään. Jos et, voit perua muutoksen ja suojata tilisi tämän linkin kautta:
+
+    {revertUrl}
+
+    Tämä palauttaa aiemman sähköpostiosoitteesi, kirjaa sinut ulos kaikilta laitteilta, poistaa liitetyt puhelinnumerot, poistaa monivaiheisen tunnistautumisen käytöstä ja edellyttää uuden salasanan asettamista.
+
+    – Noctisin turvallisuustiimi
+email_verification:
+  subject: Vahvista Noctis-sähköpostiosoitteesi
+  body: |-
+    Hei {username},
+
+    Vahvista Noctis-tilisi sähköpostiosoite klikkaamalla alla olevaa linkkiä:
+
+    {verifyUrl}
+
+    Jos et luonut Noctis-tiliä, voit huoletta jättää tämän viestin huomiotta.
+
+    Linkki on voimassa 24 tuntia.
+
+    – Noctis-tiimi
+gift_chargeback_notification:
+  subject: Lunastamasi lahjan edut on poistettu
+  body: |-
+    Hei {username},
+
+    Lunastamasi lahjakoodi oli alun perin jonkun toisen maksama. Maksu on sittemmin peruttu (chargeback).
+
+    Tämän vuoksi poistimme edut, jotka lisättiin tilillesi, kun lunastit lahjan.
+
+    Jos uskot, että kyseessä on virhe, ota yhteyttä tukitiimiimme ja liitä mukaan kaikki tiedot, jotka sinulla on lahjakoodista ja siitä, milloin lunastit sen.
+
+    – Noctis-tiimi
+harvest_completed:
+  subject: Noctis-tietojesi vienti on valmis ladattavaksi
+  body: |-
+    Hei {username},
+
+    Tietojesi vienti on valmis.
+
+    Latauslinkki:
+    {downloadUrl}
+
+    Mukana viestejä: {totalMessages, number}
+    Tiedoston koko: {fileSizeMB, number} MB
+
+    Linkki vanhenee {expiresAt, date, full} klo {expiresAt, time, short}.
+
+    Jos et pyytänyt tätä vientiä, vaihda salasanasi heti ja ota yhteyttä tukitiimiimme.
+
+    – Noctis-tiimi
+inactivity_warning:
+  subject: Noctis-tilisi poistetaan käyttämättömyyden vuoksi
+  body: |-
+    Hei {username},
+
+    Emme ole havainneet toimintaa Noctis-tililläsi sitten {lastActiveDate, date, full}.
+
+    Jos et kirjaudu sisään viimeistään {deletionDate, date, full} klo {deletionDate, time, short}, tilisi poistetaan pysyvästi käyttämättömyyden vuoksi.
+
+    Kirjaudu sisään täällä:
+    {loginUrl}
+
+    Jos olet käyttänyt Noctisia hiljattain, ota yhteyttä tukitiimiimme heti.
+
+    – Noctis-tiimi
+ip_authorization:
+  subject: Hyväksy kirjautuminen uudesta IP-osoitteesta
+  body: |-
+    Hei {username},
+
+    Huomasimme kirjautumisyrityksen Noctis-tilillesi uudesta IP-osoitteesta:
+
+    IP-osoite: {ipAddress}
+    Sijainti: {location}
+
+    Jos tämä olit sinä, hyväksy tämä IP-osoite klikkaamalla alla olevaa linkkiä:
+
+    {authUrl}
+
+    Jos et yrittänyt kirjautua, vaihda salasanasi heti.
+
+    Tämä vahvistuslinkki on voimassa 30 minuuttia.
+
+    – Noctis-tiimi
+password_change_verification:
+  subject: Vahvista Noctis-salasanan vaihto
+  body: |-
+    Hei {username},
+
+    Saimme pyynnön vaihtaa Noctis-tilisi salasanan.
+
+    Vahvista vaihto syöttämällä tämä koodi sovellukseen:
+
+    {code}
+
+    Koodi vanhenee {expiresAt, date, full} klo {expiresAt, time, short}.
+
+    Jos et pyytänyt tätä, jonkun saattaa olla pääsy tilillesi. Vaihda salasanasi heti ja ota käyttöön monivaiheinen tunnistautuminen.
+
+    – Noctis-tiimi
+password_reset:
+  subject: Nollaa Noctis-salasanasi
+  body: |-
+    Hei {username},
+
+    Pyysit Noctis-salasanan nollausta. Aseta uusi salasana alla olevasta linkistä:
+
+    {resetUrl}
+
+    Jos et pyytänyt tätä, voit huoletta jättää tämän viestin huomiotta.
+
+    Linkki on voimassa 1 tunnin.
+
+    – Noctis-tiimi
+registration_approved:
+  subject: Noctis-rekisteröintisi on hyväksytty
+  body: |-
+    Hei {username},
+
+    Hyviä uutisia: Noctis-rekisteröintisi on hyväksytty.
+
+    Voit nyt kirjautua Noctis-sovellukseen täällä:
+    {channelsUrl}
+
+    Tervetuloa Noctis-yhteisöön.
+
+    – Noctis-tiimi
+report_resolved:
+  subject: Noctis-ilmoituksesi on käsitelty
+  body: |-
+    Hei {username},
+
+    Turvallisuustiimimme on käsitellyt ilmoituksesi (ID: {reportId}).
+
+    Turvallisuustiimin vastaus:
+    {publicComment}
+
+    Kiitos, että autat pitämään Noctisin turvallisena kaikille. Suhtaudumme kaikkiin ilmoituksiin vakavasti ja arvostamme panostasi yhteisöön.
+
+    Jos sinulla on kysyttävää tai huolia tästä lopputuloksesta, ota yhteyttä osoitteeseen safety@noctis.app.
+
+    – Noctisin turvallisuustiimi
+scheduled_deletion_notification:
+  subject: Noctis-tilisi poistetaan pysyvästi
+  body: |-
+    Hei {username},
+
+    Noctis-tilisi on ajastettu poistettavaksi pysyvästi.
+
+    Poistopäivä: {deletionDate, date, full} {deletionDate, time, short}
+
+    {reason, select,
+      null {}
+      other {Syy: {reason}}
+    }
+
+    Tämä on vakava toimenpide. Tilisi tiedot poistetaan pysyvästi ilmoitettuna ajankohtana.
+
+    Jos uskot, että päätös on väärä, voit tehdä valituksen osoitteeseen appeals@noctis.app tästä sähköpostiosoitteesta.
+
+    – Noctisin turvallisuustiimi
+self_deletion_scheduled:
+  subject: Noctis-tilisi poisto on ajastettu
+  body: |-
+    Hei {username},
+
+    Pyysit Noctis-tilisi poistamista. Tilisi poistetaan pysyvästi seuraavana ajankohtana:
+
+    {deletionDate, date, full} klo {deletionDate, time, short}
+
+    Jos et pyytänyt tätä, kirjaudu sisään tilillesi peruuttaaksesi poiston. Suosittelemme myös vaihtamaan salasanasi tilisi suojaamiseksi.
+
+    – Noctis-tiimi
+unban_notification:
+  subject: Noctis-tilisi käyttökielto on poistettu
+  body: |-
+    Hei {username},
+
+    Hyviä uutisia: Noctis-tilisi käyttökielto on poistettu.
+
+    {reason, select,
+      null {}
+      other {Syy: {reason}}
+    }
+
+    Voit nyt kirjautua takaisin tilillesi ja jatkaa Noctisin käyttöä normaalisti.
+
+    – Noctisin turvallisuustiimi

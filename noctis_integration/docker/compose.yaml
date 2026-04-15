@@ -1,0 +1,59 @@
+services:
+  noctis_server:
+    build:
+      context: /root/noctis
+      dockerfile: noctis_server/Dockerfile.dev
+    working_dir: /workspace/noctis_server
+    command: >
+      sh -lc "corepack enable pnpm && pnpm install --frozen-lockfile && pnpm start"
+    ports:
+      - '18088:8088'
+    environment:
+      - NOCTIS_CONFIG=/workspace/config/config.json
+      - NODE_ENV=development
+      - NOCTIS_CONFIG__ENV=development
+    volumes:
+      - /root/noctis/packages:/workspace/packages
+      - /root/noctis/pnpm-workspace.yaml:/workspace/pnpm-workspace.yaml:ro
+      - /root/noctis/pnpm-lock.yaml:/workspace/pnpm-lock.yaml:ro
+      - /root/noctis/package.json:/workspace/package.json:ro
+      - /root/noctis/tsconfigs:/workspace/tsconfigs:ro
+      - /root/noctis/patches:/workspace/patches:ro
+      - corepack_cache:/root/.cache/node/corepack
+      - /root/noctis/noctis_integration/docker/config.json:/workspace/config/config.json:ro
+      - integration_node_modules:/workspace/node_modules
+      - /root/noctis/noctis_server:/workspace/noctis_server
+      - /root/noctis/noctis_media_proxy/data/model.onnx:/workspace/noctis_server/data/model.onnx:ro
+    networks:
+      - integration
+    restart: on-failure
+    depends_on:
+      livekit:
+        condition: service_healthy
+
+  livekit:
+    image: livekit/livekit-server:latest
+    command: --config /etc/livekit.yaml --dev
+    volumes:
+      - /root/noctis/noctis_integration/docker/livekit.yaml:/etc/livekit.yaml:ro
+    ports:
+      - '17880:7880'
+      - '17882:7882/udp'
+      - '17999:7999/udp'
+    networks:
+      - integration
+    restart: on-failure
+    healthcheck:
+      test: ['CMD-SHELL', 'wget --no-verbose --tries=1 --spider http://localhost:7880 || exit 1']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+
+networks:
+  integration:
+    name: noctis-integration-isolated
+
+volumes:
+  corepack_cache:
+  integration_node_modules:

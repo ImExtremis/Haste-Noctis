@@ -1,0 +1,43 @@
+{
+	"name": "@noctis/marketing",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		"./*": "./*"
+	},
+	"scripts": {
+		"build:css": "tailwindcss -i ./src/styles/app.css -o ./public/static/app.css --minify",
+		"build:css:watch": "tailwindcss -i ./src/styles/app.css -o ./public/static/app.css --watch=always",
+		"test": "vitest run",
+		"typecheck": "tsgo --noEmit"
+	},
+	"dependencies": {
+		"@noctis/constants": "workspace:*",
+		"@noctis/date_utils": "workspace:*",
+		"@noctis/errors": "workspace:*",
+		"@noctis/sentry": "workspace:*",
+		"@noctis/hono": "workspace:*",
+		"@noctis/hono_types": "workspace:*",
+		"@noctis/http_client": "workspace:*",
+		"@noctis/i18n": "workspace:*",
+		"@noctis/ip_utils": "workspace:*",
+		"@noctis/locale": "workspace:*",
+		"@noctis/logger": "workspace:*",
+		"@noctis/markdown_parser": "workspace:*",
+		"@noctis/rate_limit": "workspace:*",
+		"@noctis/telemetry": "workspace:*",
+		"@noctis/ui": "workspace:*",
+		"@noctis/geoip": "workspace:*",
+		"@hono/node-server": "catalog:",
+		"hono": "catalog:"
+	},
+	"devDependencies": {
+		"@tailwindcss/cli": "catalog:",
+		"@types/node": "catalog:",
+		"@typescript/native-preview": "catalog:",
+		"tailwindcss": "catalog:",
+		"vite-tsconfig-paths": "catalog:",
+		"vitest": "catalog:"
+	}
+}

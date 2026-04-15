@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Noctis
+Comment=Instant messaging and VoIP application
+Exec=app.noctis.Noctis %U
+Terminal=false
+Type=Application
+Icon=app.noctis.Noctis
+Categories=Network;InstantMessaging;
+StartupWMClass=app.noctis.Noctis

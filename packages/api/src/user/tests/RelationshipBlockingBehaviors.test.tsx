@@ -1,0 +1,109 @@
+/*
+ * Copyright (C) 2026 Noctis Contributors
+ *
+ * This file is part of Noctis.
+ *
+ * Noctis is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Noctis is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Noctis. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import {createTestAccount} from '@noctis/api/src/auth/tests/AuthTestUtils';
+import {type ApiTestHarness, createApiTestHarness} from '@noctis/api/src/test/ApiTestHarness';
+import {HTTP_STATUS} from '@noctis/api/src/test/TestConstants';
+import {createBuilder} from '@noctis/api/src/test/TestRequestBuilder';
+import {
+	assertRelationshipId,
+	assertRelationshipType,
+	blockUser,
+	listRelationships,
+	removeRelationship,
+	sendFriendRequest,
+} from '@noctis/api/src/user/tests/RelationshipTestUtils';
+import {RelationshipTypes} from '@noctis/constants/src/UserConstants';
+import {beforeEach, describe, expect, test} from 'vitest';
+
+describe('RelationshipBlockingBehaviors', () => {
+	let harness: ApiTestHarness;
+
+	beforeEach(async () => {
+		harness = await createApiTestHarness();
+	});
+
+	describe('Friend Request Blocking', () => {
+		test('friend request to blocker is generic blocked error', async () => {
+			const alice = await createTestAccount(harness);
+			const bob = await createTestAccount(harness);
+
+			await blockUser(harness, bob.token, alice.userId);
+
+			await createBuilder(harness, alice.token)
+				.post(`/users/@me/relationships/${bob.userId}`)
+				.expect(HTTP_STATUS.BAD_REQUEST, 'FRIEND_REQUEST_BLOCKED')
+				.execute();
+		});
+	});
+
+	describe('Notification Behavior', () => {
+		test('blocking ignores incoming request without notifying sender', async () => {
+			const alice = await createTestAccount(harness);
+			const bob = await createTestAccount(harness);
+
+			const {json: outgoing} = await sendFriendRequest(harness, alice.token, bob.userId);
+			assertRelationshipId(outgoing, bob.userId);
+			assertRelationshipType(outgoing, RelationshipTypes.OUTGOING_REQUEST);
+
+			const {json: blocked} = await blockUser(harness, bob.token, alice.userId);
+			assertRelationshipId(blocked, alice.userId);
+			assertRelationshipType(blocked, RelationshipTypes.BLOCKED);
+
+			const {json: aliceRels} = await listRelationships(harness, alice.token);
+			expect(aliceRels).toHaveLength(1);
+			expect(aliceRels[0]!.type).toBe(RelationshipTypes.OUTGOING_REQUEST);
+			assertRelationshipId(aliceRels[0]!, bob.userId);
+		});
+
+		test('ignoring incoming request does not notify sender', async () => {
+			const alice = await createTestAccount(harness);
+			const bob = await createTestAccount(harness);
+
+			const {json: outgoing} = await sendFriendRequest(harness, alice.token, bob.userId);
+			assertRelationshipId(outgoing, bob.userId);
+			assertRelationshipType(outgoing, RelationshipTypes.OUTGOING_REQUEST);
+
+			await removeRelationship(harness, bob.token, alice.userId);
+
+			const {json: aliceRels} = await listRelationships(harness, alice.token);
+			expect(aliceRels).toHaveLength(1);
+			expect(aliceRels[0]!.type).toBe(RelationshipTypes.OUTGOING_REQUEST);
+			assertRelationshipId(aliceRels[0]!, bob.userId);
+		});
+	});
+
+	describe('Outgoing Request Handling', () => {
+		test('blocking with outgoing request withdraws the request and notifies target', async () => {
+			const alice = await createTestAccount(harness);
+			const bob = await createTestAccount(harness);
+
+			const {json: outgoing} = await sendFriendRequest(harness, alice.token, bob.userId);
+			assertRelationshipId(outgoing, bob.userId);
+			assertRelationshipType(outgoing, RelationshipTypes.OUTGOING_REQUEST);
+
+			const {json: blocked} = await blockUser(harness, alice.token, bob.userId);
+			assertRelationshipId(blocked, bob.userId);
+			assertRelationshipType(blocked, RelationshipTypes.BLOCKED);
+
+			const {json: bobRels} = await listRelationships(harness, bob.token);
+			expect(bobRels).toHaveLength(0);
+		});
+	});
+});

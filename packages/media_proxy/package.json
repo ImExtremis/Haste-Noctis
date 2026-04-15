@@ -1,0 +1,46 @@
+{
+	"name": "@noctis/media_proxy",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		".": "./src/App.tsx",
+		"./src/types/*": "./src/types/*.tsx",
+		"./src/utils/*": "./src/utils/*.tsx",
+		"./*": "./*"
+	},
+	"main": "./src/App.tsx",
+	"types": "./src/App.tsx",
+	"scripts": {
+		"test": "vitest run",
+		"typecheck": "tsgo --noEmit"
+	},
+	"dependencies": {
+		"@aws-sdk/client-s3": "catalog:",
+		"@noctis/constants": "workspace:*",
+		"@noctis/errors": "workspace:*",
+		"@noctis/hono": "workspace:*",
+		"@noctis/hono_types": "workspace:*",
+		"@noctis/http_client": "workspace:*",
+		"@noctis/logger": "workspace:*",
+		"@noctis/media_proxy_utils": "workspace:*",
+		"@noctis/mime_utils": "workspace:*",
+		"@noctis/rate_limit": "workspace:*",
+		"@noctis/schema": "workspace:*",
+		"@noctis/sentry": "workspace:*",
+		"hono": "catalog:",
+		"magic-bytes.js": "catalog:",
+		"onnxruntime-node": "catalog:",
+		"sharp": "catalog:",
+		"tempy": "catalog:",
+		"thumbhash": "catalog:",
+		"valibot": "catalog:"
+	},
+	"devDependencies": {
+		"@opentelemetry/api": "catalog:",
+		"@types/node": "catalog:",
+		"@typescript/native-preview": "catalog:",
+		"vite-tsconfig-paths": "catalog:",
+		"vitest": "catalog:"
+	}
+}

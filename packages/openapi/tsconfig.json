@@ -1,0 +1,10 @@
+{
+	"extends": "../../tsconfigs/base.json",
+	"compilerOptions": {
+		"lib": ["ESNext"],
+		"paths": {
+			"@noctis/*": ["./../../packages/*"]
+		}
+	},
+	"include": ["src/**/*.tsx", "src/**/*.ts"]
+}

@@ -1,0 +1,12 @@
+{
+	"name": "@noctis/list_utils",
+	"version": "0.0.0",
+	"type": "module",
+	"exports": {
+		"./src/*": "./src/*",
+		"./*": "./*"
+	},
+	"dependencies": {
+		"@noctis/constants": "workspace:*"
+	}
+}

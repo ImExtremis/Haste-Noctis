@@ -1,0 +1,454 @@
+/*
+ * Copyright (C) 2026 Noctis Contributors
+ *
+ * This file is part of Noctis.
+ *
+ * Noctis is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Noctis is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Noctis. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/* ─────────────────────────────────────────────────────────────────────────────
+ * ModCasesPanel.module.css
+ * Server Settings → Moderation → Cases
+ * ───────────────────────────────────────────────────────────────────────────── */
+
+/* Panel wrapper */
+.panel {
+	display: flex;
+	flex-direction: column;
+	gap: 0;
+	height: 100%;
+}
+
+/* ── Header ──────────────────────────────────────────────────────────────── */
+
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0 0 20px 0;
+	border-bottom: 1px solid var(--background-modifier-accent);
+}
+
+.title {
+	font-size: 20px;
+	font-weight: 700;
+	color: var(--header-primary);
+	margin: 0;
+}
+
+.subtitle {
+	font-size: 12px;
+	color: var(--text-muted);
+	margin: 2px 0 0 0;
+}
+
+.headerActions {
+	display: flex;
+	gap: 8px;
+	align-items: center;
+}
+
+/* ── Filter bar ──────────────────────────────────────────────────────────── */
+
+.filterBar {
+	display: flex;
+	gap: 8px;
+	padding: 16px 0;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.searchInput {
+	flex: 1;
+	min-width: 180px;
+	height: 36px;
+	padding: 0 12px;
+	border-radius: 4px;
+	border: none;
+	background: var(--input-background);
+	color: var(--text-normal);
+	font-size: 14px;
+	outline: none;
+}
+
+.searchInput::placeholder {
+	color: var(--text-muted);
+}
+
+.filterSelect {
+	height: 36px;
+	padding: 0 10px;
+	border-radius: 4px;
+	border: none;
+	background: var(--input-background);
+	color: var(--text-normal);
+	font-size: 13px;
+	cursor: pointer;
+	outline: none;
+}
+
+/* ── Statistics row ──────────────────────────────────────────────────────── */
+
+.statsRow {
+	display: flex;
+	gap: 12px;
+	padding: 0 0 16px 0;
+	flex-wrap: wrap;
+}
+
+.statCard {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: var(--background-tertiary);
+	border-radius: 8px;
+	padding: 12px 20px;
+	min-width: 90px;
+	gap: 2px;
+}
+
+.statValue {
+	font-size: 24px;
+	font-weight: 700;
+	color: var(--header-primary);
+}
+
+.statLabel {
+	font-size: 11px;
+	color: var(--text-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.statCard.warn .statValue {
+	color: var(--yellow-360);
+}
+
+.statCard.kick .statValue {
+	color: var(--orange-360);
+}
+
+.statCard.ban .statValue {
+	color: var(--red-400);
+}
+
+/* ── Case list ───────────────────────────────────────────────────────────── */
+
+.caseList {
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+	overflow-y: auto;
+	gap: 0;
+	padding-bottom: 20px;
+}
+
+.emptyState {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 12px;
+	padding: 60px 20px;
+	color: var(--text-muted);
+	font-size: 14px;
+}
+
+.emptyStateIcon {
+	font-size: 48px;
+	opacity: 0.5;
+}
+
+.loadingState {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 60px 20px;
+	color: var(--text-muted);
+}
+
+/* ── Case row ────────────────────────────────────────────────────────────── */
+
+.caseRow {
+	display: grid;
+	grid-template-columns: auto 1fr auto auto;
+	align-items: center;
+	gap: 12px;
+	padding: 12px 16px;
+	border-radius: 4px;
+	cursor: pointer;
+	transition: background-color 0.1s ease;
+	border-bottom: 1px solid var(--background-modifier-accent);
+}
+
+.caseRow:hover {
+	background: var(--background-modifier-hover);
+}
+
+.caseRow:last-child {
+	border-bottom: none;
+}
+
+/* case type badge */
+.typeBadge {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding: 2px 8px;
+	border-radius: 3px;
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.typeBadge.warn {
+	background: rgba(250, 166, 26, 0.15);
+	color: var(--yellow-360);
+}
+
+.typeBadge.kick {
+	background: rgba(250, 120, 26, 0.15);
+	color: var(--orange-360);
+}
+
+.typeBadge.ban {
+	background: rgba(240, 71, 71, 0.15);
+	color: var(--red-400);
+}
+
+.typeBadge.timeout {
+	background: rgba(114, 137, 218, 0.15);
+	color: var(--brand-360);
+}
+
+.typeBadge.note {
+	background: rgba(79, 84, 92, 0.3);
+	color: var(--text-muted);
+}
+
+/* case info */
+.caseInfo {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	min-width: 0;
+}
+
+.caseTarget {
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--header-primary);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.caseReason {
+	font-size: 12px;
+	color: var(--text-muted);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.caseMeta {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+	gap: 2px;
+	flex-shrink: 0;
+}
+
+.caseDate {
+	font-size: 11px;
+	color: var(--text-muted);
+}
+
+.statusBadge {
+	font-size: 10px;
+	padding: 1px 6px;
+	border-radius: 10px;
+	font-weight: 600;
+	text-transform: uppercase;
+}
+
+.statusBadge.active {
+	background: rgba(67, 181, 129, 0.15);
+	color: var(--green-360);
+}
+
+.statusBadge.dismissed {
+	background: rgba(114, 118, 125, 0.2);
+	color: var(--text-muted);
+}
+
+.statusBadge.expired {
+	background: rgba(250, 166, 26, 0.1);
+	color: var(--yellow-300);
+}
+
+.caseActions {
+	display: flex;
+	gap: 4px;
+	opacity: 0;
+	transition: opacity 0.15s;
+}
+
+.caseRow:hover .caseActions {
+	opacity: 1;
+}
+
+.iconButton {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	border-radius: 4px;
+	background: transparent;
+	border: none;
+	cursor: pointer;
+	color: var(--interactive-normal);
+	transition: background-color 0.15s, color 0.15s;
+}
+
+.iconButton:hover {
+	background: var(--background-modifier-hover);
+	color: var(--interactive-hover);
+}
+
+.iconButton.danger:hover {
+	background: rgba(240, 71, 71, 0.15);
+	color: var(--red-400);
+}
+
+/* ── Automod thresholds section ──────────────────────────────────────────── */
+
+.section {
+	margin-top: 32px;
+	padding-top: 24px;
+	border-top: 1px solid var(--background-modifier-accent);
+}
+
+.sectionTitle {
+	font-size: 12px;
+	font-weight: 700;
+	color: var(--header-secondary);
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	margin: 0 0 16px 0;
+}
+
+.thresholdsGrid {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	gap: 12px;
+}
+
+.thresholdField {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.thresholdLabel {
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--header-secondary);
+	text-transform: uppercase;
+	letter-spacing: 0.3px;
+}
+
+.thresholdDescription {
+	font-size: 11px;
+	color: var(--text-muted);
+}
+
+.thresholdInput {
+	width: 100%;
+	height: 40px;
+	padding: 0 12px;
+	border-radius: 4px;
+	border: none;
+	background: var(--input-background);
+	color: var(--text-normal);
+	font-size: 14px;
+	outline: none;
+	box-sizing: border-box;
+}
+
+.thresholdInput:focus {
+	box-shadow: 0 0 0 2px var(--brand-500);
+}
+
+.saveThresholdsBtn {
+	margin-top: 16px;
+	padding: 8px 16px;
+	border-radius: 4px;
+	border: none;
+	background: var(--brand-500);
+	color: white;
+	font-size: 14px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 0.15s;
+}
+
+.saveThresholdsBtn:hover {
+	background: var(--brand-560);
+}
+
+.saveThresholdsBtn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/* ── Pagination ──────────────────────────────────────────────────────────── */
+
+.paginationRow {
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	padding: 16px 0 0 0;
+}
+
+.pageBtn {
+	padding: 6px 12px;
+	border-radius: 4px;
+	border: none;
+	background: var(--background-tertiary);
+	color: var(--text-normal);
+	font-size: 13px;
+	cursor: pointer;
+	transition: background-color 0.15s;
+}
+
+.pageBtn:hover:not(:disabled) {
+	background: var(--background-modifier-hover);
+}
+
+.pageBtn:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+}
+
+.pageInfo {
+	display: flex;
+	align-items: center;
+	font-size: 12px;
+	color: var(--text-muted);
+	padding: 0 4px;
+}

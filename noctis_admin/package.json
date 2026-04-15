@@ -1,0 +1,27 @@
+{
+	"name": "noctis_admin",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build:css": "pnpm --filter @noctis/admin build:css",
+		"build:css:watch": "pnpm --filter @noctis/admin build:css:watch",
+		"dev": "tsx watch --clear-screen=false src/index.tsx",
+		"start": "tsx src/index.tsx",
+		"typecheck": "tsgo --noEmit"
+	},
+	"dependencies": {
+		"@noctis/admin": "workspace:*",
+		"@noctis/config": "workspace:*",
+		"@noctis/constants": "workspace:*",
+		"@noctis/hono": "workspace:*",
+		"@noctis/initialization": "workspace:*",
+		"@noctis/logger": "workspace:*",
+		"tsx": "catalog:"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"@typescript/native-preview": "catalog:",
+		"tailwindcss": "catalog:"
+	},
+	"packageManager": "pnpm@10.29.3"
+}

@@ -1,0 +1,3 @@
+[submodule "noctis_static"]
+	path = noctis_static
+	url = https://github.com/noctisapp/static.git

@@ -1,0 +1,41 @@
+{
+	"name": "@noctis/admin",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		"./*": "./*"
+	},
+	"scripts": {
+		"build:css": "tailwindcss -i ./src/styles/app.css -o ./public/static/app.css --minify",
+		"build:css:watch": "tailwindcss -i ./src/styles/app.css -o ./public/static/app.css --watch=always",
+		"typecheck": "tsgo --noEmit"
+	},
+	"dependencies": {
+		"@noctis/cache": "workspace:*",
+		"@noctis/constants": "workspace:*",
+		"@noctis/date_utils": "workspace:*",
+		"@noctis/errors": "workspace:*",
+		"@noctis/hono": "workspace:*",
+		"@noctis/hono_types": "workspace:*",
+		"@noctis/kv_client": "workspace:*",
+		"@noctis/logger": "workspace:*",
+		"@noctis/number_utils": "workspace:*",
+		"@noctis/oauth2": "workspace:*",
+		"@noctis/rate_limit": "workspace:*",
+		"@noctis/schema": "workspace:*",
+		"@noctis/sentry": "workspace:*",
+		"@noctis/snowflake": "workspace:*",
+		"@noctis/ui": "workspace:*",
+		"@hono/node-server": "catalog:",
+		"clsx": "catalog:",
+		"hono": "catalog:",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@tailwindcss/cli": "catalog:",
+		"@types/node": "catalog:",
+		"@typescript/native-preview": "catalog:",
+		"tailwindcss": "catalog:"
+	}
+}

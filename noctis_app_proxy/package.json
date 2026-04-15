@@ -1,0 +1,29 @@
+{
+	"name": "noctis_app_proxy",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "tsx watch --clear-screen=false src/index.tsx",
+		"start": "tsx src/index.tsx",
+		"typecheck": "tsgo --noEmit"
+	},
+	"dependencies": {
+		"@noctis/app_proxy": "workspace:*",
+		"@noctis/cache": "workspace:*",
+		"@noctis/config": "workspace:*",
+		"@noctis/hono": "workspace:*",
+		"@noctis/initialization": "workspace:*",
+		"@noctis/kv_client": "workspace:*",
+		"@noctis/logger": "workspace:*",
+		"@noctis/rate_limit": "workspace:*",
+		"tsx": "catalog:"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"@typescript/native-preview": "catalog:"
+	},
+	"packageManager": "pnpm@10.29.3",
+	"_moduleAliases": {
+		"": "src"
+	}
+}

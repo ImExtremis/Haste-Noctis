@@ -1,0 +1,1 @@
+ALTER TABLE noctis.guilds ADD splash_card_alignment int;

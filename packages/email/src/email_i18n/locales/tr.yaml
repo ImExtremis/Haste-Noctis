@@ -1,0 +1,369 @@
+account_disabled_suspicious:
+  subject: Noctis hesabın geçici olarak devre dışı bırakıldı
+  body: |-
+    Merhaba {username},
+
+    Şüpheli etkinlik tespit ettiğimiz için Noctis hesabını geçici olarak devre dışı bıraktık.
+
+    {reason, select,
+      null {}
+      other {Neden: {reason}}
+    }
+
+    Hesabına yeniden erişmek için şifreni sıfırlaman gerekiyor:
+
+    {forgotUrl}
+
+    Şifreni sıfırladıktan sonra tekrar giriş yapabilirsin.
+
+    Bunun bir hata olduğunu düşünüyorsan destek ekibimizle iletişime geç.
+
+    – Noctis Güvenlik Ekibi
+account_scheduled_deletion:
+  subject: Noctis hesabın kalıcı olarak silinecek
+  body: |-
+    Merhaba {username},
+
+    Noctis hesabın, hizmet şartlarımızı veya topluluk kurallarımızı ihlal ettiğin için kalıcı olarak silinmek üzere planlandı.
+
+    Planlanan silinme tarihi: {deletionDate, date, full} {deletionDate, time, short}
+
+    {reason, select,
+      null {}
+      other {Neden: {reason}}
+    }
+
+    Bu ciddi bir yaptırımdır. Hesap verilerin, planlanan tarihte kalıcı olarak silinecek.
+
+    Lütfen şunları gözden geçir:
+    - Hizmet şartları: {termsUrl}
+    - Topluluk kuralları: {guidelinesUrl}
+
+    İtiraz süreci:
+    Bu yaptırım kararının hatalı veya haksız olduğunu düşünüyorsan, bu e-posta adresinden appeals@noctis.app adresine 60 gün içinde itiraz edebilirsin.
+
+    İtirazında lütfen:
+    - Kararın neden hatalı veya haksız olduğunu net bir şekilde açıkla
+    - Varsa ilgili kanıtları veya ek bağlamı paylaş
+
+    Noctis Güvenlik Ekibinden bir üye itirazını inceleyecek ve nihai karar verilene kadar planlanan silme işlemini durdurabilir.
+
+    – Noctis Güvenlik Ekibi
+account_temp_banned:
+  subject: Noctis hesabın geçici olarak askıya alındı
+  body: |-
+    Merhaba {username},
+
+    Noctis hesabın, hizmet şartlarımızı veya topluluk kurallarımızı ihlal ettiğin için geçici olarak askıya alındı.
+
+    Süre: {durationHours, plural,
+      =1 {1 saat}
+      other {# saat}
+    }
+    Askıya alınma bitişi: {bannedUntil, date, full} {bannedUntil, time, short}
+
+    {reason, select,
+      null {}
+      other {Neden: {reason}}
+    }
+
+    Bu süre boyunca hesabına erişemezsin.
+
+    Lütfen şunları gözden geçir:
+    - Hizmet şartları: {termsUrl}
+    - Topluluk kuralları: {guidelinesUrl}
+
+    Bu yaptırım kararının hatalı veya haksız olduğunu düşünüyorsan, bu e-posta adresinden appeals@noctis.app adresine itiraz edebilirsin. Lütfen kararın neden hatalı olduğunu açıkça yaz. İtirazını inceleyip kararımızı sana bildireceğiz.
+
+    – Noctis Güvenlik Ekibi
+donation_confirmation:
+  subject: Noctis bağışınız için teşekkürler
+  body: |-
+    Merhaba,
+
+    Noctis'a bağışınız için teşekkürler! {interval, select,
+      month {Düzenli bağışınız}
+      year {Düzenli bağışınız}
+      other {Tek seferlik bağışınız}
+    } başarıyla {interval, select,
+      month {kuruldu}
+      year {kuruldu}
+      other {işleme alındı}
+    }.
+
+    Bağış detayları:
+    Tutar: {amount} {currency} {interval, select,
+      month {aylık}
+      year {yıllık}
+      other {}
+    }
+
+    Stripe kısa süre içinde fatura PDF'inizi içeren ayrı bir makbuz gönderecek. Bu, tüm ödeme detaylarını içerir ve vergi amaçlarıyla kullanılabilir.
+
+    Bağış geçmişinizi görüntüleyebilir, faturaları indirebilir, {interval, select,
+      month {ve aboneliğinizi yönetebilir veya iptal edebilirsiniz}
+      year {ve aboneliğinizi yönetebilir veya iptal edebilirsiniz}
+      other {ve gelecekteki bağışları yönetebilirsiniz}
+    } bu bağlantıyı kullanarak istediğiniz zaman:
+
+    {manageUrl}
+
+    Desteğiniz Noctis'in çalışmasını sağlıyor. Teşekkürler!
+
+    – Noctis Ekibi
+donation_magic_link:
+  subject: Noctis bağışlarını yönet
+  body: |-
+    Merhaba,
+
+    Bağışçı portalına erişmek için aşağıdaki bağlantıya tıkla:
+
+    {manageUrl}
+
+    Portalda abonelikleri yönetebilir, faturaları indirebilir ve bağış geçmişini görüntüleyebilirsin.
+
+    Bu bağlantı {expiresAt, date, full} tarihinde {expiresAt, time, short} saatinde geçersiz olur.
+
+    Bunu sen istemediysen bu e-postayı yok sayabilirsin.
+
+    – Noctis Ekibi
+dsa_report_verification:
+  subject: DSA bildirimi için e-posta adresini doğrula
+  body: |-
+    Merhaba,
+
+    Noctis'da Dijital Hizmetler Yasası (DSA) kapsamında bildirim gönderebilmek için aşağıdaki doğrulama kodunu kullan:
+
+    {code}
+
+    Bu kod {expiresAt, date, full} tarihinde {expiresAt, time, short} saatinde geçersiz olur.
+
+    Bunu sen istemediysen bu e-postayı yok sayabilirsin.
+
+    – Noctis Güvenlik Ekibi
+email_change_new:
+  subject: Yeni Noctis e-posta adresini doğrula
+  body: |-
+    Merhaba {username},
+
+    Yeni Noctis e-posta adresini doğrulamak için uygulamada bu kodu gir:
+
+    {code}
+
+    Bu kod {expiresAt, date, full} tarihinde {expiresAt, time, short} saatinde geçersiz olur.
+
+    Bunu sen istemediysen bu e-postayı yok sayabilirsin.
+
+    – Noctis Ekibi
+email_change_original:
+  subject: Noctis e-posta değişikliğini onayla
+  body: |-
+    Merhaba {username},
+
+    Noctis hesabındaki e-posta adresini değiştirmek için bir istek aldık.
+
+    Bu değişikliği onaylamak için uygulamada şu kodu gir:
+
+    {code}
+
+    Bu kod {expiresAt, date, full} tarihinde {expiresAt, time, short} saatinde geçersiz olur.
+
+    Bunu sen istemediysen hesabını hemen güvene al.
+
+    – Noctis Ekibi
+email_change_revert:
+  subject: Noctis e-posta adresin değiştirildi
+  body: |-
+    Merhaba {username},
+
+    Noctis hesabının e-posta adresi {newEmail} olarak değiştirildi.
+
+    Bu değişikliği sen yaptıysan bir şey yapmana gerek yok. Yapmadıysan, aşağıdaki bağlantıyı kullanarak değişikliği geri alabilir ve hesabını güvene alabilirsin:
+
+    {revertUrl}
+
+    Bu işlem önceki e-posta adresini geri yükler, seni tüm cihazlardan çıkış yaptırır, bağlı telefon numaralarını kaldırır, çok faktörlü kimlik doğrulamayı (MFA) devre dışı bırakır ve yeni bir şifre belirlemeni zorunlu kılar.
+
+    – Noctis Güvenlik Ekibi
+email_verification:
+  subject: Noctis e-posta adresini doğrula
+  body: |-
+    Merhaba {username},
+
+    Noctis hesabının e-posta adresini doğrulamak için aşağıdaki bağlantıya tıkla:
+
+    {verifyUrl}
+
+    Noctis hesabını sen açmadıysan bu e-postayı güvenle yok sayabilirsin.
+
+    Bu bağlantı 24 saat boyunca geçerlidir.
+
+    – Noctis Ekibi
+gift_chargeback_notification:
+  subject: Hediye kodundan kazandığın avantajlar kaldırıldı
+  body: |-
+    Merhaba {username},
+
+    Kullandığın bir hediye kodu aslında başka biri tarafından satın alınmıştı. Bu ödeme daha sonra geri alındı (chargeback).
+
+    Bu nedenle, hediyeyi kullandığında hesabına eklenen avantajları kaldırdık.
+
+    Bunun bir hata olduğunu düşünüyorsan, destek ekibimizle iletişime geç ve hediye kodu ile ne zaman kullandığına dair elindeki tüm detayları paylaş.
+
+    – Noctis Ekibi
+harvest_completed:
+  subject: Noctis veri dışa aktarımın indirilmeye hazır
+  body: |-
+    Merhaba {username},
+
+    Veri dışa aktarımın hazır.
+
+    İndirme bağlantısı:
+    {downloadUrl}
+
+    İçerilen mesaj sayısı: {totalMessages, number}
+    Dosya boyutu: {fileSizeMB, number} MB
+
+    Bu bağlantı {expiresAt, date, full} tarihinde {expiresAt, time, short} saatinde geçersiz olur.
+
+    Bu dışa aktarımı sen istemediysen şifreni hemen değiştir ve destek ekibimizle iletişime geç.
+
+    – Noctis Ekibi
+inactivity_warning:
+  subject: Hareketsizlik nedeniyle Noctis hesabın silinecek
+  body: |-
+    Merhaba {username},
+
+    {lastActiveDate, date, full} tarihinden beri Noctis hesabında herhangi bir etkinlik görmedik.
+
+    {deletionDate, date, full} tarihinde {deletionDate, time, short} saatine kadar giriş yapmazsan, hesabın hareketsizlik nedeniyle kalıcı olarak silinecek.
+
+    Buradan giriş yap:
+    {loginUrl}
+
+    Noctis'i yakın zamanda kullandıysan, hemen destek ekibimizle iletişime geç.
+
+    – Noctis Ekibi
+ip_authorization:
+  subject: Yeni bir IP adresinden girişi onayla
+  body: |-
+    Merhaba {username},
+
+    Noctis hesabına yeni bir IP adresinden giriş denemesi tespit ettik:
+
+    IP adresi: {ipAddress}
+    Konum: {location}
+
+    Bu senin girişinse, aşağıdaki bağlantıyı kullanarak bu IP adresini onayla:
+
+    {authUrl}
+
+    Giriş yapmayı sen denemediysen şifreni hemen değiştir.
+
+    Bu onay bağlantısı 30 dakika boyunca geçerlidir.
+
+    – Noctis Ekibi
+password_change_verification:
+  subject: Noctis şifre değişikliğini onayla
+  body: |-
+    Merhaba {username},
+
+    Noctis hesabındaki şifreyi değiştirmek için bir istek aldık.
+
+    Bu değişikliği onaylamak için uygulamada şu kodu gir:
+
+    {code}
+
+    Bu kod {expiresAt, date, full} tarihinde {expiresAt, time, short} saatinde geçersiz olur.
+
+    Bunu sen istemediysen, birisi hesabına erişmiş olabilir. Hemen şifreni değiştir ve iki faktörlü kimlik doğrulamayı etkinleştir.
+
+    – Noctis Ekibi
+password_reset:
+  subject: Noctis şifreni sıfırla
+  body: |-
+    Merhaba {username},
+
+    Noctis şifreni sıfırlamak için bir istekte bulundun. Yeni bir şifre belirlemek için aşağıdaki bağlantıyı kullan:
+
+    {resetUrl}
+
+    Bu şifre sıfırlamayı sen istemediysen bu e-postayı güvenle yok sayabilirsin.
+
+    Bu bağlantı 1 saat boyunca geçerlidir.
+
+    – Noctis Ekibi
+registration_approved:
+  subject: Noctis kaydın onaylandı
+  body: |-
+    Merhaba {username},
+
+    Güzel haber: Noctis kaydın onaylandı.
+
+    Artık Noctis uygulamasına şu adresten giriş yapabilirsin:
+    {channelsUrl}
+
+    Noctis topluluğuna hoş geldin.
+
+    – Noctis Ekibi
+report_resolved:
+  subject: Noctis bildirimin değerlendirildi
+  body: |-
+    Merhaba {username},
+
+    Bildirimin (ID: {reportId}) Noctis Güvenlik Ekibi tarafından değerlendirildi.
+
+    Güvenlik ekibinin yanıtı:
+    {publicComment}
+
+    Noctis'i herkes için güvenli tutmamıza yardımcı olduğun için teşekkürler. Tüm bildirimleri ciddiye alıyoruz ve topluluğa yaptığın katkıyı takdir ediyoruz.
+
+    Bu sonuç hakkında soruların ya da endişelerin varsa safety@noctis.app adresinden bize ulaş.
+
+    – Noctis Güvenlik Ekibi
+scheduled_deletion_notification:
+  subject: Noctis hesabın kalıcı olarak silinecek
+  body: |-
+    Merhaba {username},
+
+    Noctis hesabın kalıcı olarak silinmek üzere planlandı.
+
+    Planlanan silinme tarihi: {deletionDate, date, full} {deletionDate, time, short}
+
+    {reason, select,
+      null {}
+      other {Neden: {reason}}
+    }
+
+    Bu ciddi bir yaptırımdır. Hesap verilerin, planlanan tarihte kalıcı olarak silinecek.
+
+    Bu yaptırım kararının hatalı olduğunu düşünüyorsan, bu e-posta adresinden appeals@noctis.app adresine itiraz edebilirsin.
+
+    – Noctis Güvenlik Ekibi
+self_deletion_scheduled:
+  subject: Noctis hesabının silinmesi planlandı
+  body: |-
+    Merhaba {username},
+
+    Noctis hesabını silmek istediğini belirttin. Hesabın şu tarihte kalıcı olarak silinecek:
+
+    {deletionDate, date, full} tarihinde {deletionDate, time, short} saatinde
+
+    Bunu sen istemediysen, silme işlemini iptal etmek için hesabına giriş yap. Hesabını güvende tutmak için şifreni değiştirmeni de öneririz.
+
+    – Noctis Ekibi
+unban_notification:
+  subject: Noctis hesabının askısı kaldırıldı
+  body: |-
+    Merhaba {username},
+
+    Güzel haber: Noctis hesabının askısı kaldırıldı.
+
+    {reason, select,
+      null {}
+      other {Neden: {reason}}
+    }
+
+    Artık hesabına tekrar giriş yapıp Noctis'i kullanmaya devam edebilirsin.
+
+    – Noctis Güvenlik Ekibi

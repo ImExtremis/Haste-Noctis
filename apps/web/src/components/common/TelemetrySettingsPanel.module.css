@@ -1,0 +1,179 @@
+/* TelemetrySettingsPanel.module.css — D8 Opt-In Telemetry UI */
+
+.panel {
+	background: var(--background-secondary);
+	border-radius: 10px;
+	padding: 20px;
+	border: 1px solid var(--background-modifier-accent);
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	max-width: 600px;
+}
+
+/* ─── Header row (title + toggle) ─────────────────────────────────────────── */
+
+.header {
+	display: flex;
+	align-items: flex-start;
+	gap: 16px;
+	justify-content: space-between;
+}
+
+.headerText {
+	flex: 1;
+}
+
+.title {
+	font-size: 15px;
+	font-weight: 700;
+	color: var(--header-primary);
+	margin: 0 0 6px;
+}
+
+.description {
+	font-size: 13px;
+	color: var(--text-muted);
+	margin: 0;
+	line-height: 1.5;
+}
+
+/* ─── Toggle ─────────────────────────────────────────────────────────────── */
+
+.toggle {
+	flex-shrink: 0;
+	width: 44px;
+	height: 24px;
+	border-radius: 12px;
+	background: var(--background-modifier-accent);
+	border: none;
+	cursor: pointer;
+	position: relative;
+	transition: background 0.2s ease;
+	margin-top: 2px;
+}
+
+.toggle[data-state='on'] {
+	background: var(--brand-500, #5865f2);
+}
+
+.toggle:disabled {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.toggleThumb {
+	position: absolute;
+	top: 4px;
+	left: 4px;
+	width: 16px;
+	height: 16px;
+	border-radius: 50%;
+	background: white;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+	transition: transform 0.2s ease;
+}
+
+.toggle[data-state='on'] .toggleThumb {
+	transform: translateX(20px);
+}
+
+/* ─── Divider ────────────────────────────────────────────────────────────── */
+
+.divider {
+	height: 1px;
+	background: var(--background-modifier-accent);
+}
+
+/* ─── Columns ───────────────────────────────────────────────────────────── */
+
+.columns {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 16px;
+}
+
+@media (max-width: 480px) {
+	.columns {
+		grid-template-columns: 1fr;
+	}
+}
+
+.column {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.columnHeader {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin-bottom: 4px;
+}
+
+.columnTitle {
+	font-size: 12px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+}
+
+.iconAllowed {
+	color: var(--status-positive, #3ba55c);
+}
+
+.iconDenied {
+	color: var(--status-danger, #ed4245);
+}
+
+/* ─── Lists ──────────────────────────────────────────────────────────────── */
+
+.list {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.listItem {
+	display: flex;
+	align-items: flex-start;
+	gap: 6px;
+	font-size: 13px;
+	color: var(--text-normal);
+	line-height: 1.4;
+}
+
+.bulletIcon {
+	flex-shrink: 0;
+	color: var(--status-positive, #3ba55c);
+	margin-top: 1px;
+}
+
+.bulletIconDenied {
+	flex-shrink: 0;
+	color: var(--text-muted);
+	margin-top: 1px;
+}
+
+/* ─── Session note ───────────────────────────────────────────────────────── */
+
+.sessionNote {
+	font-size: 12px;
+	color: var(--text-muted);
+	margin: 0;
+	padding-top: 4px;
+	border-top: 1px solid var(--background-modifier-accent);
+	line-height: 1.5;
+}
+
+/* ─── Error ──────────────────────────────────────────────────────────────── */
+
+.errorText {
+	font-size: 13px;
+	color: var(--status-danger);
+	margin: 0;
+}

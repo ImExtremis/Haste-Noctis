@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  noctis_server:
+    build:
+      context: .
+      dockerfile: noctis_server/Dockerfile
+    image: ${NOCTIS_SERVER_IMAGE:-ghcr.io/noctisapp/noctis-server:stable}
+    container_name: noctis_server
+    ports:
+      - "${NOCTIS_HTTP_PORT:-8080}:8080"
+    environment:
+      # Optional: To use a JSON config file instead of env vars
+      - NOCTIS_CONFIG=/app/config/config.json
+    volumes:
+      - ./config:/app/config
+      - noctis_data:/usr/src/app/data
+      - noctis_opt_data:/opt/data
+      - noctis_root_data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/_health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.12
+    container_name: noctis_meilisearch
+    profiles:
+      - search
+    environment:
+      - MEILI_MASTER_KEY=${MEILI_MASTER_KEY}
+    ports:
+      - "${MEILI_PORT:-7700}:7700"
+    volumes:
+      - meili_data:/meili_data
+    restart: unless-stopped
+
+  livekit:
+    image: livekit/livekit-server:latest
+    container_name: noctis_livekit
+    profiles:
+      - voice
+    command: --config /etc/livekit.yaml
+    ports:
+      - "${LIVEKIT_PORT:-7880}:7880"
+      - "7881:7881"
+      - "7882:7882/udp"
+    volumes:
+      - ./config/livekit.yaml:/etc/livekit.yaml
+    restart: unless-stopped
+
+volumes:
+  noctis_data:
+  noctis_opt_data:
+  noctis_root_data:
+  meili_data:

@@ -1,0 +1,26 @@
+{
+	"name": "noctis_api",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"dev": "tsx watch --clear-screen=false src/AppEntrypoint.tsx",
+		"start": "tsx src/AppEntrypoint.tsx",
+		"start:worker": "tsx src/WorkerEntrypoint.tsx",
+		"typecheck": "tsgo --noEmit"
+	},
+	"dependencies": {
+		"@noctis/api": "workspace:*",
+		"@noctis/config": "workspace:*",
+		"@noctis/hono": "workspace:*",
+		"@noctis/initialization": "workspace:*",
+		"@noctis/logger": "workspace:*",
+		"@noctis/sentry": "workspace:*",
+		"cassandra-driver": "catalog:",
+		"tsx": "catalog:"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"@typescript/native-preview": "catalog:"
+	},
+	"packageManager": "pnpm@10.29.3"
+}

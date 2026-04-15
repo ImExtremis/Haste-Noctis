@@ -1,0 +1,35 @@
+{
+	"name": "@noctis/s3",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"exports": {
+		"./*": "./*"
+	},
+	"scripts": {
+		"test": "vitest run",
+		"test:coverage": "vitest run --coverage",
+		"test:watch": "vitest",
+		"typecheck": "tsgo --noEmit"
+	},
+	"dependencies": {
+		"@noctis/cache": "workspace:*",
+		"@noctis/constants": "workspace:*",
+		"@noctis/errors": "workspace:*",
+		"@noctis/hono": "workspace:*",
+		"@noctis/hono_types": "workspace:*",
+		"@noctis/kv_client": "workspace:*",
+		"@noctis/logger": "workspace:*",
+		"@noctis/rate_limit": "workspace:*",
+		"@noctis/sentry": "workspace:*",
+		"hono": "catalog:",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"@typescript/native-preview": "catalog:",
+		"@vitest/coverage-v8": "catalog:",
+		"vite-tsconfig-paths": "catalog:",
+		"vitest": "catalog:"
+	}
+}

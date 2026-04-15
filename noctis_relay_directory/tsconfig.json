@@ -1,0 +1,11 @@
+{
+	"extends": "../tsconfigs/service.json",
+	"compilerOptions": {
+		"paths": {
+			"@app/*": ["./src/*"],
+			"@noctis/relay_directory/*": ["./src/*"],
+			"@noctis/*": ["./../packages/*", "./../packages/*/src/index.tsx"]
+		}
+	},
+	"include": ["src/**/*", "scripts/**/*"]
+}

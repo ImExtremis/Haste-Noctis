@@ -1,0 +1,112 @@
+/*
+ * Copyright (C) 2026 Noctis Contributors
+ *
+ * This file is part of Noctis.
+ *
+ * Noctis is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Noctis is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Noctis. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import type {GuildID, MessageID, ReportID, UserID} from '@noctis/api/src/BrandedTypes';
+import type {IARSubmission} from '@noctis/api/src/report/IReportRepository';
+import type {IReportSearchService} from '@noctis/api/src/search/IReportSearchService';
+import {MeilisearchSearchServiceBase} from '@noctis/api/src/search/meilisearch/MeilisearchSearchServiceBase';
+import {convertToSearchableReport} from '@noctis/api/src/search/report/ReportSearchSerializer';
+import type {MeilisearchReportAdapterOptions} from '@noctis/meilisearch_search/src/adapters/MeilisearchReportAdapter';
+import {MeilisearchReportAdapter} from '@noctis/meilisearch_search/src/adapters/MeilisearchReportAdapter';
+import type {SearchResult as SchemaSearchResult} from '@noctis/schema/src/contracts/search/SearchAdapterTypes';
+import type {ReportSearchFilters, SearchableReport} from '@noctis/schema/src/contracts/search/SearchDocumentTypes';
+
+export interface MeilisearchReportSearchServiceOptions extends MeilisearchReportAdapterOptions {}
+
+export class MeilisearchReportSearchService
+	extends MeilisearchSearchServiceBase<ReportSearchFilters, SearchableReport, MeilisearchReportAdapter>
+	implements IReportSearchService
+{
+	constructor(options: MeilisearchReportSearchServiceOptions) {
+		super(new MeilisearchReportAdapter(options));
+	}
+
+	async indexReport(report: IARSubmission): Promise<void> {
+		await this.indexDocument(convertToSearchableReport(report));
+	}
+
+	async indexReports(reports: Array<IARSubmission>): Promise<void> {
+		if (reports.length === 0) return;
+		await this.indexDocuments(reports.map(convertToSearchableReport));
+	}
+
+	async updateReport(report: IARSubmission): Promise<void> {
+		await this.updateDocument(convertToSearchableReport(report));
+	}
+
+	async deleteReport(reportId: ReportID): Promise<void> {
+		await this.deleteDocument(reportId.toString());
+	}
+
+	async deleteReports(reportIds: Array<ReportID>): Promise<void> {
+		await this.deleteDocuments(reportIds.map((id) => id.toString()));
+	}
+
+	searchReports(
+		query: string,
+		filters: ReportSearchFilters,
+		options?: {limit?: number; offset?: number},
+	): Promise<SchemaSearchResult<SearchableReport>> {
+		return this.search(query, filters, options);
+	}
+
+	listReportsByReporter(
+		reporterId: UserID,
+		limit?: number,
+		offset?: number,
+	): Promise<SchemaSearchResult<SearchableReport>> {
+		return this.searchReports('', {reporterId: reporterId.toString()}, {limit, offset});
+	}
+
+	listReportsByStatus(status: number, limit?: number, offset?: number): Promise<SchemaSearchResult<SearchableReport>> {
+		return this.searchReports('', {status}, {limit, offset});
+	}
+
+	listReportsByType(
+		reportType: number,
+		limit?: number,
+		offset?: number,
+	): Promise<SchemaSearchResult<SearchableReport>> {
+		return this.searchReports('', {reportType}, {limit, offset});
+	}
+
+	listReportsByReportedUser(
+		reportedUserId: UserID,
+		limit?: number,
+		offset?: number,
+	): Promise<SchemaSearchResult<SearchableReport>> {
+		return this.searchReports('', {reportedUserId: reportedUserId.toString()}, {limit, offset});
+	}
+
+	listReportsByReportedGuild(
+		reportedGuildId: GuildID,
+		limit?: number,
+		offset?: number,
+	): Promise<SchemaSearchResult<SearchableReport>> {
+		return this.searchReports('', {reportedGuildId: reportedGuildId.toString()}, {limit, offset});
+	}
+
+	listReportsByReportedMessage(
+		reportedMessageId: MessageID,
+		limit?: number,
+		offset?: number,
+	): Promise<SchemaSearchResult<SearchableReport>> {
+		return this.searchReports('', {reportedMessageId: reportedMessageId.toString()}, {limit, offset});
+	}
+}

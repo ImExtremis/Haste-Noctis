@@ -1,0 +1,22 @@
+{
+	"name": "@noctis/app_proxy",
+	"version": "0.0.0",
+	"type": "module",
+	"exports": {
+		"./*": "./*"
+	},
+	"dependencies": {
+		"@noctis/config": "workspace:*",
+		"@noctis/constants": "workspace:*",
+		"@noctis/hono": "workspace:*",
+		"@noctis/hono_types": "workspace:*",
+		"@noctis/ip_utils": "workspace:*",
+		"@noctis/logger": "workspace:*",
+		"@noctis/rate_limit": "workspace:*",
+		"@noctis/sentry": "workspace:*",
+		"hono": "catalog:"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:"
+	}
+}

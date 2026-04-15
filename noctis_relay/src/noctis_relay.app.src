@@ -1,0 +1,9 @@
+{application, noctis_relay, [
+    {description, "Noctis Relay Server"},
+    {vsn, "0.1.0"},
+    {registered, []},
+    {mod, {noctis_relay_app, []}},
+    {applications, [kernel, stdlib, crypto, cowboy, gun, lager]},
+    {env, []},
+    {modules, []}
+]}.

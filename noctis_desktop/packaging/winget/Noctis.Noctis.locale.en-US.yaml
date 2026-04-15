@@ -1,0 +1,22 @@
+PackageIdentifier: Noctis.Noctis
+PackageVersion: PLACEHOLDER_VERSION
+PackageLocale: en-US
+Publisher: Noctis Contributors
+PublisherUrl: https://noctis.app
+PublisherSupportUrl: https://github.com/noctisapp/noctis/issues
+PackageName: Noctis
+PackageUrl: https://noctis.app
+License: AGPL-3.0-or-later
+LicenseUrl: https://github.com/noctisapp/noctis/blob/main/LICENCE
+ShortDescription: Instant messaging and VoIP application
+Description: Noctis is a free and open-source instant messaging and voice-over-IP application. It provides text chat, voice calls, video calls, and screen sharing in a modern, privacy-respecting interface.
+Tags:
+  - chat
+  - messaging
+  - voip
+  - voice
+  - video
+  - communication
+  - open-source
+ManifestType: defaultLocale
+ManifestVersion: 1.6.0

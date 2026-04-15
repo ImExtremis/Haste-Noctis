@@ -1,0 +1,30 @@
+.container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 8px;
+}
+
+.secure {
+	color: var(--status-online);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.secure svg {
+	width: 16px;
+	height: 16px;
+}
+
+.insecure {
+	color: var(--text-muted);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.insecure svg {
+	width: 16px;
+	height: 16px;
+}

@@ -1,0 +1,153 @@
+---
+title: 'Instance'
+description: 'Instance object schemas from the Noctis API.'
+---
+
+<a id="wellknownnoctisresponse"></a>
+
+## WellKnownNoctisResponse
+
+**Related endpoints**
+
+- [`GET /.well-known/noctis`](/api-reference/instance/get-instance-discovery-document)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| api_code_version | integer (int53) | Version of the API server code |
+| app_public | [WellKnownNoctisResponseAppPublic](#wellknownnoctisresponseapppublic) | Public application configuration for client-side features |
+| captcha | [WellKnownNoctisResponseCaptcha](#wellknownnoctisresponsecaptcha) | Captcha configuration |
+| endpoints | [WellKnownNoctisResponseEndpoints](#wellknownnoctisresponseendpoints) | Endpoint URLs for various services |
+| features | [WellKnownNoctisResponseFeatures](#wellknownnoctisresponsefeatures) | Feature flags for this instance |
+| federation? | [WellKnownNoctisResponseFederation](#wellknownnoctisresponsefederation) | Federation configuration |
+| gif | [WellKnownNoctisResponseGif](#wellknownnoctisresponsegif) | GIF provider configuration for clients |
+| limits | [WellKnownNoctisResponseLimits](#wellknownnoctisresponselimits) | Limit configuration with rules and trait definitions |
+| oauth2? | [WellKnownNoctisResponseOauth2](#wellknownnoctisresponseoauth2) | OAuth2 endpoints for federation |
+| public_key? | [WellKnownNoctisResponsePublicKey](#wellknownnoctisresponsepublickey) | Public key for E2E encryption |
+| push | [WellKnownNoctisResponsePush](#wellknownnoctisresponsepush) | Push notification configuration |
+| sso | [SsoStatusResponse](#ssostatusresponse) | Single sign-on configuration |
+
+<a id="wellknownnoctisresponseapppublic"></a>
+
+## WellKnownNoctisResponseAppPublic
+
+Public application configuration for client-side features
+
+| Field | Type | Description |
+|-------|------|-------------|
+| sentry_dsn | string | Sentry DSN for client-side error reporting |
+
+<a id="wellknownnoctisresponsecaptcha"></a>
+
+## WellKnownNoctisResponseCaptcha
+
+Captcha configuration
+
+| Field | Type | Description |
+|-------|------|-------------|
+| hcaptcha_site_key | ?string | hCaptcha site key if using hCaptcha |
+| provider | string | Captcha provider name (hcaptcha, turnstile, none) |
+| turnstile_site_key | ?string | Cloudflare Turnstile site key if using Turnstile |
+
+<a id="wellknownnoctisresponseendpoints"></a>
+
+## WellKnownNoctisResponseEndpoints
+
+Endpoint URLs for various services
+
+| Field | Type | Description |
+|-------|------|-------------|
+| admin | string | Base URL for the admin panel |
+| api | string | Base URL for authenticated API requests |
+| api_client | string | Base URL for client API requests |
+| api_public | string | Base URL for public API requests |
+| gateway | string | WebSocket URL for the gateway |
+| gift | string | Base URL for gift links |
+| invite | string | Base URL for invite links |
+| marketing | string | Base URL for the marketing website |
+| media | string | Base URL for the media proxy |
+| static_cdn | string | Base URL for static assets (avatars, emojis, etc.) |
+| webapp | string | Base URL for the web application |
+
+<a id="wellknownnoctisresponsefeatures"></a>
+
+## WellKnownNoctisResponseFeatures
+
+Feature flags for this instance
+
+| Field | Type | Description |
+|-------|------|-------------|
+| manual_review_enabled | boolean | Whether manual review mode is enabled for registrations |
+| self_hosted | boolean | Whether this is a self-hosted instance |
+| sms_mfa_enabled | boolean | Whether SMS-based MFA is available |
+| stripe_enabled | boolean | Whether Stripe payments are enabled |
+| voice_enabled | boolean | Whether voice/video calling is enabled |
+
+<a id="wellknownnoctisresponsefederation"></a>
+
+## WellKnownNoctisResponseFederation
+
+Federation configuration
+
+| Field | Type | Description |
+|-------|------|-------------|
+| enabled | boolean | Whether federation is enabled on this instance |
+| version | integer (int53) | Federation protocol version |
+
+<a id="wellknownnoctisresponsegif"></a>
+
+## WellKnownNoctisResponseGif
+
+GIF provider configuration for clients
+
+| Field | Type | Description |
+|-------|------|-------------|
+| provider | [WellKnownNoctisResponseGifProvider](#wellknownnoctisresponsegifprovider) | GIF provider used by the instance GIF picker |
+
+<a id="wellknownnoctisresponselimits"></a>
+
+## WellKnownNoctisResponseLimits
+
+Limit configuration with rules and trait definitions
+
+| Field | Type | Description |
+|-------|------|-------------|
+| defaultsHash | string | Hash of the default limit values for cache invalidation |
+| rules | [LimitRuleResponse](#limitruleresponse)[] | Array of limit rules to evaluate |
+| traitDefinitions | string[] | Available trait definitions (e.g., "premium") |
+| version | enum&lt;`2`&gt; | Wire format version |
+
+<a id="wellknownnoctisresponseoauth2"></a>
+
+## WellKnownNoctisResponseOauth2
+
+OAuth2 endpoints for federation
+
+| Field | Type | Description |
+|-------|------|-------------|
+| authorization_endpoint | string | OAuth2 authorization endpoint URL |
+| scopes_supported | string[] | Supported OAuth2 scopes |
+| token_endpoint | string | OAuth2 token endpoint URL |
+| userinfo_endpoint | string | OAuth2 userinfo endpoint URL |
+
+<a id="wellknownnoctisresponsepublickey"></a>
+
+## WellKnownNoctisResponsePublicKey
+
+Public key for E2E encryption
+
+| Field | Type | Description |
+|-------|------|-------------|
+| algorithm | enum&lt;`x25519`&gt; | Key algorithm |
+| id | [SnowflakeType](#snowflaketype) | Key identifier |
+| public_key_base64 | string | Base64-encoded public key |
+
+<a id="wellknownnoctisresponsepush"></a>
+
+## WellKnownNoctisResponsePush
+
+Push notification configuration
+
+| Field | Type | Description |
+|-------|------|-------------|
+| public_vapid_key | ?string | VAPID public key for web push notifications |
+

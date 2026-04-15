@@ -1,0 +1,28 @@
+{
+	"name": "noctis_relay_directory",
+	"version": "0.0.0",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"build": "tsgo",
+		"dev": "tsx watch src/index.tsx",
+		"openapi:generate": "tsx scripts/GenerateOpenAPI.tsx",
+		"start": "tsx src/index.tsx",
+		"typecheck": "tsgo --noEmit"
+	},
+	"dependencies": {
+		"@noctis/config": "workspace:*",
+		"@noctis/hono": "workspace:*",
+		"@noctis/openapi": "workspace:*",
+		"@noctis/schema": "workspace:*",
+		"@hono/node-server": "catalog:",
+		"hono": "catalog:",
+		"pino": "catalog:",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@types/node": "catalog:",
+		"@typescript/native-preview": "catalog:",
+		"tsx": "catalog:"
+	}
+}

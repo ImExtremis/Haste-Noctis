@@ -1,0 +1,371 @@
+account_disabled_suspicious:
+  subject: Twoje konto Noctis zostało tymczasowo wyłączone
+  body: |-
+    Cześć {username},
+
+    Twoje konto Noctis zostało tymczasowo wyłączone, ponieważ wykryliśmy podejrzaną aktywność.
+
+    {reason, select,
+      null {}
+      other {Powód: {reason}}
+    }
+
+    Aby odzyskać dostęp do konta, zresetuj hasło:
+
+    {forgotUrl}
+
+    Po zresetowaniu hasła będziesz mógł/mogła ponownie się zalogować.
+
+    Jeśli uważasz, że to pomyłka, skontaktuj się z naszym supportem.
+
+    – Zespół bezpieczeństwa Noctis
+account_scheduled_deletion:
+  subject: Twoje konto Noctis zostanie trwale usunięte
+  body: |-
+    Cześć {username},
+
+    Twoje konto Noctis zostało zaplanowane do trwałego usunięcia, ponieważ naruszono nasz regulamin lub wytyczne społeczności.
+
+    Planowana data usunięcia: {deletionDate, date, full} {deletionDate, time, short}
+
+    {reason, select,
+      null {}
+      other {Powód: {reason}}
+    }
+
+    To poważna decyzja. Dane Twojego konta zostaną trwale usunięte w zaplanowanym terminie.
+
+    Zapoznaj się proszę z:
+    - Regulaminem: {termsUrl}
+    - Wytycznymi społeczności: {guidelinesUrl}
+
+    Odwołanie:
+    Jeśli uważasz, że ta decyzja jest błędna lub nieuzasadniona, możesz w ciągu 60 dni złożyć odwołanie. Wyślij je na appeals@noctis.app z tego adresu e-mail.
+
+    W odwołaniu:
+    - Napisz jasno, dlaczego uważasz, że decyzja jest błędna lub nieuzasadniona
+    - Dołącz, jeśli to możliwe, istotne dowody lub dodatkowy kontekst
+
+    Członek Zespołu bezpieczeństwa Noctis rozpatrzy Twoje odwołanie i może wstrzymać planowane usunięcie do czasu podjęcia ostatecznej decyzji.
+
+    – Zespół bezpieczeństwa Noctis
+account_temp_banned:
+  subject: Twoje konto Noctis zostało tymczasowo zawieszone
+  body: |-
+    Cześć {username},
+
+    Twoje konto Noctis zostało tymczasowo zawieszone za naruszenie regulaminu lub wytycznych społeczności.
+
+    Czas trwania: {durationHours, plural,
+      one {# godzina}
+      few {# godziny}
+      many {# godzin}
+      other {# godziny}
+    }
+    Zawieszone do: {bannedUntil, date, full} {bannedUntil, time, short}
+
+    {reason, select,
+      null {}
+      other {Powód: {reason}}
+    }
+
+    W tym czasie nie będziesz mieć dostępu do konta.
+
+    Zapoznaj się proszę z:
+    - Regulaminem: {termsUrl}
+    - Wytycznymi społeczności: {guidelinesUrl}
+
+    Jeśli uważasz, że ta decyzja jest błędna lub nieuzasadniona, możesz złożyć odwołanie: wyślij e-mail na appeals@noctis.app z tego adresu. Napisz proszę jasno, dlaczego uważasz, że decyzja jest błędna. Rozpatrzymy odwołanie i odpowiemy z naszą decyzją.
+
+    – Zespół bezpieczeństwa Noctis
+donation_confirmation:
+  subject: Dziękujemy za darowiznę na Noctis
+  body: |-
+    Cześć,
+
+    Dziękujemy za darowiznę na Noctis! Twoja {interval, select,
+      month {cykliczna darowizna}
+      year {cykliczna darowizna}
+      other {jednorazowa darowizna}
+    } została pomyślnie {interval, select,
+      month {skonfigurowana}
+      year {skonfigurowana}
+      other {przetworzona}
+    }.
+
+    Szczegóły darowizny:
+    Kwota: {amount} {currency} {interval, select,
+      month {miesięcznie}
+      year {rocznie}
+      other {}
+    }
+
+    Stripe wkrótce prześle Ci osobny e-mail z paragonem i PDF z fakturą. Zawiera on wszystkie szczegóły płatności i może być wykorzystany do celów podatkowych.
+
+    Możesz w dowolnym momencie wyświetlić historię darowizn, pobrać faktury{interval, select,
+      month { oraz zarządzać lub anulować subskrypcję}
+      year { oraz zarządzać lub anulować subskrypcję}
+      other { oraz zarządzać przyszłymi darowiznami}
+    }, korzystając z tego linku:
+
+    {manageUrl}
+
+    Twoje wsparcie pomaga utrzymać Noctis. Dziękujemy!
+
+    – Zespół Noctis
+donation_magic_link:
+  subject: Zarządzaj swoimi darowiznami dla Noctis
+  body: |-
+    Cześć,
+
+    Kliknij poniższy link, aby uzyskać dostęp do portalu dla darczyńców:
+
+    {manageUrl}
+
+    W portalu możesz zarządzać subskrypcjami, pobierać faktury i przeglądać historię darowizn.
+
+    Ten link wygasa {expiresAt, date, full} o {expiresAt, time, short}.
+
+    Jeśli tego nie żądałeś/żądałaś, możesz bezpiecznie zignorować tego e-maila.
+
+    – Zespół Noctis
+dsa_report_verification:
+  subject: Potwierdź adres e-mail do zgłoszenia DSA
+  body: |-
+    Cześć,
+
+    Użyj poniższego kodu, aby złożyć zgłoszenie w ramach Digital Services Act (DSA) w Noctis:
+
+    {code}
+
+    Ten kod wygasa {expiresAt, date, full} o {expiresAt, time, short}.
+
+    Jeśli to nie Ty, możesz zignorować tego e-maila.
+
+    – Zespół bezpieczeństwa Noctis
+email_change_new:
+  subject: Potwierdź nowy adres e-mail w Noctis
+  body: |-
+    Cześć {username},
+
+    Wpisz ten kod w aplikacji, aby potwierdzić nowy adres e-mail w Noctis:
+
+    {code}
+
+    Ten kod wygasa {expiresAt, date, full} o {expiresAt, time, short}.
+
+    Jeśli to nie Ty, możesz zignorować tego e-maila.
+
+    – Zespół Noctis
+email_change_original:
+  subject: Potwierdź zmianę adresu e-mail w Noctis
+  body: |-
+    Cześć {username},
+
+    Otrzymaliśmy prośbę o zmianę adresu e-mail przypisanego do Twojego konta Noctis.
+
+    Aby potwierdzić zmianę, wpisz ten kod w aplikacji:
+
+    {code}
+
+    Ten kod wygasa {expiresAt, date, full} o {expiresAt, time, short}.
+
+    Jeśli to nie Ty, zabezpiecz konto od razu.
+
+    – Zespół Noctis
+email_change_revert:
+  subject: Adres e-mail do Twojego konta Noctis został zmieniony
+  body: |-
+    Cześć {username},
+
+    Adres e-mail przypisany do Twojego konta Noctis został zmieniony na {newEmail}.
+
+    Jeśli to Ty dokonałeś/dokonałaś zmiany, nie musisz nic robić. Jeśli nie, możesz cofnąć zmianę i zabezpieczyć konto, korzystając z poniższego linku:
+
+    {revertUrl}
+
+    To przywróci poprzedni adres e-mail, wyloguje Cię na wszystkich urządzeniach, usunie powiązane numery telefonu, wyłączy MFA i wymusi ustawienie nowego hasła.
+
+    – Zespół bezpieczeństwa Noctis
+email_verification:
+  subject: Potwierdź adres e-mail w Noctis
+  body: |-
+    Cześć {username},
+
+    Potwierdź adres e-mail przypisany do Twojego konta Noctis, klikając poniższy link:
+
+    {verifyUrl}
+
+    Jeśli nie tworzyłaś/tworzyłeś konta Noctis, możesz bezpiecznie zignorować tego e-maila.
+
+    Ten link jest ważny przez 24 godziny.
+
+    – Zespół Noctis
+gift_chargeback_notification:
+  subject: Korzyści z wykorzystanego prezentu zostały usunięte
+  body: |-
+    Cześć {username},
+
+    Kod prezentowy, który wykorzystałeś/wykorzystałaś, został pierwotnie opłacony przez inną osobę. Płatność została następnie cofnięta (chargeback).
+
+    W związku z tym usunęliśmy korzyści, które zostały dodane do Twojego konta w momencie wykorzystania prezentu.
+
+    Jeśli uważasz, że to pomyłka, skontaktuj się z naszym supportem i podaj wszystkie szczegóły, jakie masz o kodzie prezentowym oraz czasie jego wykorzystania.
+
+    – Zespół Noctis
+harvest_completed:
+  subject: Twój eksport danych Noctis jest gotowy do pobrania
+  body: |-
+    Cześć {username},
+
+    Twój eksport danych jest gotowy.
+
+    Link do pobrania:
+    {downloadUrl}
+
+    Liczba wiadomości: {totalMessages, number}
+    Rozmiar pliku: {fileSizeMB, number} MB
+
+    Ten link wygasa {expiresAt, date, full} o {expiresAt, time, short}.
+
+    Jeśli to nie Ty prosiłeś/prosiłaś o ten eksport, zmień hasło od razu i skontaktuj się z naszym supportem.
+
+    – Zespół Noctis
+inactivity_warning:
+  subject: Twoje konto Noctis zostanie usunięte z powodu braku aktywności
+  body: |-
+    Cześć {username},
+
+    Nie zarejestrowaliśmy żadnej aktywności na Twoim koncie Noctis od {lastActiveDate, date, full}.
+
+    Jeśli nie zalogujesz się do {deletionDate, date, full} o {deletionDate, time, short}, Twoje konto zostanie trwale usunięte z powodu braku aktywności.
+
+    Zaloguj się tutaj:
+    {loginUrl}
+
+    Jeśli ostatnio korzystałeś/korzystałaś z Noctis, skontaktuj się z naszym supportem od razu.
+
+    – Zespół Noctis
+ip_authorization:
+  subject: Potwierdź logowanie z nowego adresu IP
+  body: |-
+    Cześć {username},
+
+    Wykryliśmy próbę logowania do Twojego konta Noctis z nowego adresu IP:
+
+    Adres IP: {ipAddress}
+    Lokalizacja: {location}
+
+    Jeśli to Ty, potwierdź ten adres IP, klikając poniższy link:
+
+    {authUrl}
+
+    Jeśli to nie Ty próbowałeś/próbowałaś się zalogować, zmień hasło od razu.
+
+    Ten link potwierdzający jest ważny przez 30 minut.
+
+    – Zespół Noctis
+password_change_verification:
+  subject: Potwierdź zmianę hasła do Noctis
+  body: |-
+    Cześć {username},
+
+    Otrzymaliśmy prośbę o zmianę hasła do Twojego konta Noctis.
+
+    Aby potwierdzić tę zmianę, wpisz ten kod w aplikacji:
+
+    {code}
+
+    Ten kod wygasa {expiresAt, date, full} o {expiresAt, time, short}.
+
+    Jeśli to nie Ty, ktoś mógł uzyskać dostęp do Twojego konta. Zmień hasło natychmiast i włącz uwierzytelnianie dwuskładnikowe.
+
+    – Zespół Noctis
+password_reset:
+  subject: Zresetuj hasło do Noctis
+  body: |-
+    Cześć {username},
+
+    Otrzymaliśmy prośbę o zresetowanie hasła do Noctis. Użyj poniższego linku, aby ustawić nowe hasło:
+
+    {resetUrl}
+
+    Jeśli to nie Ty, możesz bezpiecznie zignorować tego e-maila.
+
+    Ten link jest ważny przez 1 godzinę.
+
+    – Zespół Noctis
+registration_approved:
+  subject: Twoja rejestracja w Noctis została zatwierdzona
+  body: |-
+    Cześć {username},
+
+    Dobre wiadomości: Twoja rejestracja w Noctis została zatwierdzona.
+
+    Możesz teraz zalogować się do aplikacji Noctis tutaj:
+    {channelsUrl}
+
+    Witamy w społeczności Noctis.
+
+    – Zespół Noctis
+report_resolved:
+  subject: Twoje zgłoszenie zostało rozpatrzone
+  body: |-
+    Cześć {username},
+
+    Twoje zgłoszenie (ID: {reportId}) zostało rozpatrzone przez nasz Zespół bezpieczeństwa.
+
+    Odpowiedź Zespołu bezpieczeństwa:
+    {publicComment}
+
+    Dziękujemy, że pomagasz dbać o bezpieczeństwo Noctis. Traktujemy wszystkie zgłoszenia poważnie i doceniamy Twój wkład w społeczność.
+
+    Jeśli masz pytania lub wątpliwości dotyczące tego wyniku, napisz na safety@noctis.app.
+
+    – Zespół bezpieczeństwa Noctis
+scheduled_deletion_notification:
+  subject: Twoje konto Noctis zostanie trwale usunięte
+  body: |-
+    Cześć {username},
+
+    Twoje konto Noctis zostało zaplanowane do trwałego usunięcia.
+
+    Planowana data usunięcia: {deletionDate, date, full} {deletionDate, time, short}
+
+    {reason, select,
+      null {}
+      other {Powód: {reason}}
+    }
+
+    To poważna decyzja. Dane Twojego konta zostaną trwale usunięte w zaplanowanym terminie.
+
+    Jeśli uważasz, że ta decyzja jest błędna, możesz złożyć odwołanie: wyślij e-mail na appeals@noctis.app z tego adresu.
+
+    – Zespół bezpieczeństwa Noctis
+self_deletion_scheduled:
+  subject: Usunięcie Twojego konta Noctis zostało zaplanowane
+  body: |-
+    Cześć {username},
+
+    Poprosiłeś/poprosiłaś o usunięcie konta Noctis. Twoje konto zostanie trwale usunięte:
+
+    {deletionDate, date, full} o {deletionDate, time, short}
+
+    Jeśli to nie Ty, zaloguj się na konto, aby anulować usunięcie. Zalecamy też zmianę hasła, aby zabezpieczyć konto.
+
+    – Zespół Noctis
+unban_notification:
+  subject: Zawieszenie Twojego konta Noctis zostało zniesione
+  body: |-
+    Cześć {username},
+
+    Dobre wiadomości: zawieszenie Twojego konta Noctis zostało zniesione.
+
+    {reason, select,
+      null {}
+      other {Powód: {reason}}
+    }
+
+    Możesz ponownie się zalogować i dalej korzystać z Noctis jak zwykle.
+
+    – Zespół bezpieczeństwa Noctis

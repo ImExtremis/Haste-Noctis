@@ -1,0 +1,151 @@
+/*
+ * Copyright (C) 2026 Noctis Contributors
+ *
+ * This file is part of Noctis.
+ *
+ * Noctis is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * Noctis is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with Noctis. If not, see <https://www.gnu.org/licenses/>.
+ */
+
+import {Config} from '@noctis/api/src/Config';
+import {getMetricsService, initializeMetricsService} from '@noctis/api/src/infrastructure/MetricsService';
+import {SnowflakeService} from '@noctis/api/src/infrastructure/SnowflakeService';
+import {Logger} from '@noctis/api/src/Logger';
+import {getKVClient, setInjectedWorkerService} from '@noctis/api/src/middleware/ServiceRegistry';
+import {initializeSearch} from '@noctis/api/src/SearchFactory';
+import {CronScheduler} from '@noctis/api/src/worker/CronScheduler';
+import {JetStreamWorkerQueue} from '@noctis/api/src/worker/JetStreamWorkerQueue';
+import {setWorkerDependencies} from '@noctis/api/src/worker/WorkerContext';
+import {initializeWorkerDependencies, shutdownWorkerDependencies} from '@noctis/api/src/worker/WorkerDependencies';
+import {WorkerMetricsCollector} from '@noctis/api/src/worker/WorkerMetricsCollector';
+import {WorkerRunner} from '@noctis/api/src/worker/WorkerRunner';
+import {WorkerService} from '@noctis/api/src/worker/WorkerService';
+import {workerTasks} from '@noctis/api/src/worker/WorkerTaskRegistry';
+import {setupGracefulShutdown} from '@noctis/hono/src/Server';
+import {JetStreamConnectionManager} from '@noctis/nats/src/JetStreamConnectionManager';
+import {captureException, flushSentry as flush} from '@noctis/sentry/src/Sentry';
+import {ms} from 'itty-time';
+
+const WORKER_CONCURRENCY = 20;
+
+function registerCronJobs(cron: CronScheduler): void {
+	cron.upsert('processAssetDeletionQueue', 'processAssetDeletionQueue', {}, '0 */5 * * * *');
+	cron.upsert('processCloudflarePurgeQueue', 'processCloudflarePurgeQueue', {}, '0 */2 * * * *');
+	cron.upsert('processPendingBulkMessageDeletions', 'processPendingBulkMessageDeletions', {}, '0 */10 * * * *');
+	cron.upsert('processInactivityDeletions', 'processInactivityDeletions', {}, '0 0 */6 * * *');
+	cron.upsert('expireAttachments', 'expireAttachments', {}, '0 0 */12 * * *');
+	// cron.upsert('cleanupCsamEvidence', 'cleanupCsamEvidence', {}, '0 0 3 * * *');
+	// cron.upsert('csamScanConsumer', 'csamScanConsumer', {}, '* * * * * *');
+	cron.upsert('syncDiscoveryIndex', 'syncDiscoveryIndex', {}, '0 */15 * * * *');
+
+	Logger.info('Cron jobs registered successfully');
+}
+
+export async function startWorkerMain(): Promise<void> {
+	Logger.info('Starting worker backend...');
+
+	initializeMetricsService();
+	Logger.info('MetricsService initialised');
+
+	const kvClient = getKVClient();
+	const snowflakeService = new SnowflakeService(kvClient);
+	await snowflakeService.initialize();
+	Logger.info('Shared SnowflakeService initialised');
+
+	const jsConnectionManager = new JetStreamConnectionManager({
+		url: Config.nats.jetStreamUrl,
+		token: Config.nats.authToken || undefined,
+		name: 'noctis-worker',
+	});
+	await jsConnectionManager.connect();
+	Logger.info('JetStream connection established');
+
+	const queue = new JetStreamWorkerQueue(jsConnectionManager);
+	await queue.ensureInfrastructure();
+	Logger.info('JetStream stream and consumer verified');
+
+	const workerService = new WorkerService(queue);
+	setInjectedWorkerService(workerService);
+
+	const dependencies = await initializeWorkerDependencies(snowflakeService);
+	setWorkerDependencies(dependencies);
+
+	const cron = new CronScheduler(queue, Logger);
+	registerCronJobs(cron);
+
+	const metricsCollector = new WorkerMetricsCollector({
+		kvClient: dependencies.kvClient,
+		metricsService: getMetricsService(),
+		assetDeletionQueue: dependencies.assetDeletionQueue,
+		purgeQueue: dependencies.purgeQueue,
+		bulkMessageDeletionQueue: dependencies.bulkMessageDeletionQueueService,
+		accountDeletionQueue: dependencies.deletionQueueService,
+	});
+
+	const runner = new WorkerRunner({
+		tasks: workerTasks,
+		queue,
+		concurrency: WORKER_CONCURRENCY,
+	});
+
+	try {
+		try {
+			await initializeSearch();
+			Logger.info('Search initialised for worker backend');
+		} catch (error) {
+			Logger.warn({err: error}, 'Search initialisation failed; continuing without search');
+		}
+
+		metricsCollector.start();
+		Logger.info('WorkerMetricsCollector started');
+
+		cron.start();
+		Logger.info('Cron scheduler started');
+
+		await runner.start();
+		Logger.info(`Worker runner started with ${WORKER_CONCURRENCY} workers`);
+
+		const shutdown = async (): Promise<void> => {
+			Logger.info('Shutting down worker backend...');
+			cron.stop();
+			metricsCollector.stop();
+			await runner.stop();
+			await jsConnectionManager.drain();
+			await shutdownWorkerDependencies(dependencies);
+			await snowflakeService.shutdown();
+		};
+
+		setupGracefulShutdown(shutdown, {logger: Logger, timeoutMs: 30000});
+
+		process.on('uncaughtException', async (error) => {
+			Logger.error({err: error}, 'Uncaught Exception');
+			captureException(error);
+			await flush(ms('2 seconds'));
+			await shutdown();
+			process.exit(0);
+		});
+
+		process.on('unhandledRejection', async (reason: unknown) => {
+			Logger.error({err: reason}, 'Unhandled Rejection at Promise');
+			captureException(reason instanceof Error ? reason : new Error(String(reason)));
+			await flush(ms('2 seconds'));
+			setTimeout(() => process.exit(1), ms('5 seconds')).unref();
+			await shutdown();
+		});
+	} catch (error: unknown) {
+		Logger.error({err: error}, 'Failed to start worker backend');
+		captureException(error instanceof Error ? error : new Error(String(error)));
+		await flush(ms('2 seconds'));
+		process.exit(1);
+	}
+}
