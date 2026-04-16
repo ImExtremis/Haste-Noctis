@@ -3,7 +3,7 @@
 	"compilerOptions": {
 		"paths": {
 			"@app/*": ["./src/*"],
-			"@noctis/*": ["./../packages/*", "./../packages/*/src/index.tsx"]
+			"@noctis/*": ["./../../packages/*", "./../../packages/*/src/index.tsx"]
 		}
 	},
 	"include": ["src/**/*", "scripts/**/*"]
