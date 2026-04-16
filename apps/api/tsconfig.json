@@ -1,5 +1,5 @@
 {
-	"extends": "../tsconfigs/hono-service.json",
+	"extends": "../../tsconfigs/hono-service.json",
 	"compilerOptions": {
 		"paths": {
 			"@app/*": ["./src/*"],
